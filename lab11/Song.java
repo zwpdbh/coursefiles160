@@ -56,13 +56,5 @@ public class Song {
 		return word;
 	}
 	
-//	private static int numOfWords(String str) {
-//		Scanner words = new Scanner(str);
-//		words.useDelimiter(" ");
-//		int count = 0;
-//		while (words.hasNext()) {
-//			count++;
-//		}
-//		return count;
-//	}
+
 }
