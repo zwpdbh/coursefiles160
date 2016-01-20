@@ -17,13 +17,28 @@ public class DinerApp {
 
 class TablePanel extends JPanel {
 	private Diner diner1, diner2, diner3, diner4, diner5, diner6;
+	private final int TABLE_X = 400;
+	private final int TABLE_Y = 420;
 	
 	/**Constructor*/
 	public TablePanel() {
-		diner1 = new Diner(int x, int y, String name, int seatNumber, Color colour)
+		// this is the center(x, y) of the top circle "David"; 
+		int originalX = (int)this.TABLE_X/2;
+		int originalY = (int)this.TABLE_Y/5;
+		
+		diner1 = new Diner(originalX, originalY, "David", 1, Color.GREEN);
+		
+		
+		setPreferredSize(new Dimension(this.TABLE_X, this.TABLE_Y));
+		setBackground(Color.lightGray);
 	}
 	
-	/**set the backgroud color*/
+	/**All the graphics drawing will be handled by this method*/
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
+		diner1.draw(g);
+	}
 }
 
 /**represent the seat aroud the table*/
@@ -45,7 +60,9 @@ class Diner {
 	}
 	
 	/**draw*/
-	public draw(Graphics g) {
-		
+	public void draw(Graphics g) {
+		int radius = (int)this.DIAMETER/2;
+		g.setColor(this.colour);
+		g.fillOval(this.x - radius, this.y - radius, this.DIAMETER, this.DIAMETER);
 	}
 }
