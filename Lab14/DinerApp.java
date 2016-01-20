@@ -14,55 +14,57 @@ public class DinerApp {
 	}
 }
 
-
 class TablePanel extends JPanel {
 	private Diner diner1, diner2, diner3, diner4, diner5, diner6;
-	private final int TABLE_X = 400;
-	private final int TABLE_Y = 420;
+	
+	private static final int SIZE = 70;
+	private static final int PANEL_X = SIZE * 8;
+	private static final int PANEL_Y = PANEL_X + 20;
+	private Table table;
 	
 	/**Constructor*/
 	public TablePanel() {
-		// this is the center(x, y) of the top circle "David"; 
-		int originalX = (int)this.TABLE_X/2;
-		int originalY = (int)this.TABLE_Y/5;
+		// a black rectangle as table
+		table = new Table(PANEL_X/2 - SIZE/2, PANEL_Y/2 - SIZE, SIZE, SIZE*2.5, Color.black);
 		
-		diner1 = new Diner(originalX, originalY, "David", 1, Color.GREEN);
+		// 6 circle as dinner, use table'4 corner as coordinate
+		Point p = new Point();
+		p = table.upCenter();
+		diner1 = new Diner(p.getX(), p.getY()-SIZE/2-10 , "David", 1, Color.yellow);
 		
+		p = table.downCenter();
+		diner4 = new Diner(p.getX(), p.getY()+SIZE/2+10, "Metrila", 4, Color.cyan);
 		
-		setPreferredSize(new Dimension(this.TABLE_X, this.TABLE_Y));
-		setBackground(Color.lightGray);
+		p = table.upLeft();
+		diner6 = new Diner(p.getX()-SIZE, p.getY()+SIZE/2, "Jacqul", 6, Color.lightGray);
+		
+		p = table.upRight();
+		diner2 = new Diner(p.getX()+SIZE, p.getY()+SIZE/2, "Clare", 2, Color.red);
+		
+		p = table.downLeft();
+		diner5 = new Diner(p.getX()-SIZE, p.getY()-SIZE/2, "Todd", 5, Color.pink);
+		
+		p = table.downRight();
+		diner3 = new Diner(p.getX()+SIZE, p.getY()-SIZE/2, "Michael", 4, Color.green);
+	
+		
+		setPreferredSize(new Dimension(this.PANEL_X, this.PANEL_Y));
+		setBackground(Color.white);
 	}
 	
 	/**All the graphics drawing will be handled by this method*/
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
+		table.draw(g);
 		diner1.draw(g);
+		diner4.draw(g);
+		diner6.draw(g);
+		diner2.draw(g);
+		diner5.draw(g);
+		diner3.draw(g);
+
 	}
 }
 
-/**represent the seat aroud the table*/
-class Diner {
-	private int x;
-	private int y;
-	private String name;
-	private int seatNumber;
-	private Color colour;
-	private final int DIAMETER = 50;
-	
-	/**constructor to initialize */
-	public Diner(int x, int y, String name, int seatNumber, Color colour) {
-		this.x = x;
-		this.y = y;
-		this.name = name;
-		this.seatNumber = seatNumber;
-		this.colour = colour;
-	}
-	
-	/**draw*/
-	public void draw(Graphics g) {
-		int radius = (int)this.DIAMETER/2;
-		g.setColor(this.colour);
-		g.fillOval(this.x - radius, this.y - radius, this.DIAMETER, this.DIAMETER);
-	}
-}
+
