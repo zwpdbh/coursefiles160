@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.print.*;
 import java.awt.*;
 
+/**draw the frame and add panel TablePanel*/
 public class DinerApp {
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("Dinner table");
@@ -14,6 +15,7 @@ public class DinerApp {
 	}
 }
 
+/**TablePanel has 6 circle and one rectangle*/
 class TablePanel extends JPanel {
 	private Diner diner1, diner2, diner3, diner4, diner5, diner6;
 	
