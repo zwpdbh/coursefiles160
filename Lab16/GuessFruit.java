@@ -13,19 +13,26 @@ public class GuessFruit {
 		}
 		
 		for (String fruit: fruits) {
-			//System.out.print(fruit + "\t");
-			System.out.println("Guess what fruit I am?\t" + fruit.substring(0, 2) + "\t" + fruit.length() + "letters");
-			String guess = input.nextLine();
-			
-			while (!guess.equals(fruit)) {
-				System.out.println("Try again\n");
+//			System.out.println("Guess what fruit I am?\t" + fruit.substring(0, 2) + "\t" + fruit.length() + "letters");
+//			String guess = input.nextLine();
+//			
+//			while (!guess.equals(fruit)) {
+//				System.out.println("Try again\n");
+//				System.out.println("Guess what fruit I am?\t" + fruit.substring(0, 2) + "\t" + fruit.length() + "letters");
+//				guess = input.nextLine();
+//			}
+			/** do-while is very useful when get user's input and execute it in a conditional loop*/
+			String guess;
+			do {
 				System.out.println("Guess what fruit I am?\t" + fruit.substring(0, 2) + "\t" + fruit.length() + "letters");
 				guess = input.nextLine();
-			}
-			
-			if (guess.equals(fruit)) {
-				System.out.println("Correct\n");
-			}
+				if (guess.equalsIgnoreCase(fruit)) {
+					break;
+				}
+				System.out.println("Try again\n"); //it is natural to put "try again" before next loop
+			} while (!guess.equalsIgnoreCase(fruit));
+
+			System.out.println("Correct\n");
 		}
 	}
 }
