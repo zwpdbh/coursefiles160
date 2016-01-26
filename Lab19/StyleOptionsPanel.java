@@ -22,7 +22,7 @@ public class StyleOptionsPanel extends JPanel
    //-----------------------------------------------------------------
    public StyleOptionsPanel()
    {  
-      courier = new JRadioButton("Courier");
+      courier = new JRadioButton("Courier", true);   // default selected one
       times = new JRadioButton("Times New Roman");
       helvetica = new JRadioButton("Helvetica");
       
@@ -48,7 +48,17 @@ public class StyleOptionsPanel extends JPanel
       group.add(this.courier);
       group.add(this.times);
       group.add(this.helvetica);
-      add(group);
+      // add(group); group is a logic group, not real visual group, so do not add it on panel
+      
+      // add my listener for RadioButton
+      RadioButtonListener mylistener = new RadioButtonListener();
+      courier.addActionListener(mylistener);
+      helvetica.addActionListener(mylistener);
+      times.addActionListener(mylistener);
+      
+      add(courier);
+      add(times);
+      add(helvetica);
       
       setBackground (Color.cyan);
       setPreferredSize (new Dimension(300, 100));
@@ -73,6 +83,18 @@ public class StyleOptionsPanel extends JPanel
             style += Font.ITALIC;
 
          saying.setFont (new Font (typeFace, style, 20));
+      }
+   }
+   
+   private class RadioButtonListener implements ActionListener {
+      public void actionPerformed(ActionEvent e) {
+         if (e.getSource() == courier) {
+            saying.setFont(new Font("Courier", style, 20));
+         } else if (e.getSource() == times) {
+            saying.setFont(new Font("Times New Roman", style, 20));
+         } else {
+            saying.setFont(new Font("Helvetica", style, 20));
+         }
       }
    }
 }
