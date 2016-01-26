@@ -5,7 +5,7 @@ import java.awt.event.*;
 /**Lab18*/
 public class TrafficLightPanel extends JPanel{
 	private JButton red, green, amber;
-	private JLabel buttonLabel, lastPressed;
+	private JLabel buttonLabel, lastPressed;   // update based on the value of "lastPressed"
 	private JPanel buttonPanel;
 	
 	/**constructor: set the GUI*/
@@ -82,10 +82,11 @@ public class TrafficLightPanel extends JPanel{
 		/**use lastpressed value to set the color*/
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			//g.setColor(Color.red);
+			// draw 3 black traffic lights as default
 			g.fillOval(20, 30, 40, 40);
 			g.fillOval(20, 80, 40, 40);
 			g.fillOval(20, 130, 40, 40);
+			// if the value of "lastPressed" is set, draw the traffic light based on its value. Remember the didSet method from swift?!  
 			if (lastPressed.getText().equalsIgnoreCase("red")) {
 				g.setColor(Color.red);
 				g.fillOval(20, 30, 40, 40);
