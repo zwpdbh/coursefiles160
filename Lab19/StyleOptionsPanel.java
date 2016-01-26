@@ -14,13 +14,20 @@ public class StyleOptionsPanel extends JPanel
    private JCheckBox bold, italic;
    private int style = Font.PLAIN;
    private String typeFace = "Helvetica";
+   private JRadioButton courier, times, helvetica;
 
    //-----------------------------------------------------------------
    //  Sets up a panel with a label and some check boxes that
    //  control the style of the label's font.
    //-----------------------------------------------------------------
    public StyleOptionsPanel()
-   {
+   {  
+      courier = new JRadioButton("Courier");
+      times = new JRadioButton("Times New Roman");
+      helvetica = new JRadioButton("Helvetica");
+      
+      setLayout(new GridLayout(6, 1));
+       
       saying = new JLabel ("Say it with style!");
       saying.setFont (new Font (typeFace, style, 20));
 
@@ -36,7 +43,13 @@ public class StyleOptionsPanel extends JPanel
       add (saying);
       add (bold);
       add (italic);
-
+      // add a ButtonGroup with three RadioButton within it.
+      ButtonGroup group = new ButtonGroup();
+      group.add(this.courier);
+      group.add(this.times);
+      group.add(this.helvetica);
+      add(group);
+      
       setBackground (Color.cyan);
       setPreferredSize (new Dimension(300, 100));
    }
