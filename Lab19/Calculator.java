@@ -10,14 +10,14 @@
 
 public class Calculator {  
   
-  private int currentInput;          //current input
-  private int previousInput;         // previous input
-  private int result;            // result of calculation
+  private long currentInput;          //current input
+  private long previousInput;         // previous input
+  private long result;            // result of calculation
   private String lastOperator = "";  // keeps track of the last operator entered
   
   
   /** New digit entered as integer value i - moves currentInput 1 decimal place to the left and adds i in "one's column" */
-  public void inDigit(int i) {
+  public void inDigit(long i) {
     currentInput = (currentInput * 10) + i;
   }
   
@@ -53,16 +53,16 @@ public class Calculator {
   
   /** returns the current result */
   public String getResult() {  
-    return Integer.toString(result);  //converts int to String
+    return Long.toString(result);  //converts int to String
   }
   
   /** returns the previous input value */
   public String getPreviousInput() {
-    return Integer.toString(previousInput);
+    return Long.toString(previousInput);
   }
   /** returns the current input value */
   public String getCurrentInput() {
-    return Integer.toString(currentInput);
+    return Long.toString(currentInput);
   }
   
 }  
