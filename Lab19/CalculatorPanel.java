@@ -9,8 +9,11 @@
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
+import java.util.*;
 
 public class CalculatorPanel extends JPanel {
+  // a data field calc to hold a Calculator object
+  private Calculator calc;
   
   // an array of buttons displayed on the calculator
   private JButton[] digitButtons;
@@ -29,10 +32,11 @@ public class CalculatorPanel extends JPanel {
   
   /** Constructor -- builds a GUI for a calculator */
   public CalculatorPanel() {
+    calc = new Calculator();
     
     // create an array of button labels 
     String[] buttonLabels =  {"1", "2", "3", "4", "5", "6",
-      "7", "8", "9", "C", "0", "."};
+      "7", "8", "9", "C", "0", "=", "+", "-", "*"};
     
     // Create an array of buttons. 
     digitButtons = new JButton[buttonLabels.length];
@@ -42,7 +46,7 @@ public class CalculatorPanel extends JPanel {
     
     // Create a 4 x 3 grid for placement of buttons. 
     JPanel buttonGrid = new JPanel();
-    buttonGrid.setLayout(new GridLayout(4, 3));
+    buttonGrid.setLayout(new GridLayout(5, 3));
     
     /* Create a button with each button label, add it to buttonGrid,
    and register the button as a listener. */
@@ -70,6 +74,29 @@ public class CalculatorPanel extends JPanel {
     public void actionPerformed(ActionEvent aE) {
       JButton whichButton = (JButton) aE.getSource();
       display.setText("You pressed " +  whichButton.getText());
+      
+      if ("+".equals(whichButton.getText())) {
+        calc.inOperator("+");
+        display.setText("+");
+      } else if ("-".equals(whichButton.getText())) {
+        calc.inOperator("-");
+        display.setText("-");
+      } else if ("*".equals(whichButton.getText())) {
+        calc.inOperator("*");
+        display.setText("*");
+      } else if ("C".equals(whichButton.getText())) {
+        calc.inClear();
+        display.setText("");
+      } else if ("=".equals(whichButton.getText())) {
+        calc.inEquals();
+        display.setText(calc.getResult());
+      } else {
+        int i = 0;
+        Scanner scan = new Scanner(whichButton.getText());
+        i = scan.nextInt();
+        calc.inDigit(i);
+        display.setText(calc.getCurrentInput());
+      }
     }
   }
   
