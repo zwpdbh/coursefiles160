@@ -49,7 +49,7 @@ public class Song {
 			}
 			count ++;
 		}
-
+		// if the total number of words is smaller than the th, then it is not a valid th, return " "
 		if (count - 1 < th) {
 			return word = " ";
 		}
