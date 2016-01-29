@@ -1,9 +1,16 @@
 import java.util.function.*;
 
-/**Op is an enum which represent the operation*/
-public enum Op {
-	Operand, UnaryOperation, BinaryOperation
-	BinaryOperat
-	una
+public class Op {
+	private BiFunction<T,U,R> binaryOperation;
+	private String unaryOperation;
+	private double operand;
 	
+	public Op(double operand) {
+		this.operand = operand;
+		this.unaryOperation = 
+	}
+	
+	public Op(String operation, double num1, double num2) {
+		
+	} 
 }
