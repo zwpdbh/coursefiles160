@@ -27,20 +27,19 @@ public class FilePanel extends JPanel{
     //int[] pixelArray = new int[6];
     try {
       Scanner fileScan = new Scanner(new File(fileName));
-      int[] pixelArray = new int[6];
+      int[] pixelArray = new int[6];                
       while (fileScan.hasNext()) {                   // process each line in the file
         String line = fileScan.nextLine();
         if (line.matches("\\d+ \\d+ \\d+ \\d+ \\d+ \\d+")) {   // 1. check if each line has delimiter patter
           Scanner lineScan = new Scanner(line);
           int countPixel = 0;
-          int num = -1;
           while (lineScan.hasNext()) {                  // process each colum for each line
             try {
-              num = Integer.parseInt(lineScan.next());
+              pixelArray[countPixel] = Integer.parseInt(lineScan.next());
             } catch (NumberFormatException e) {
               System.out.format("There is some error when parsing String ==> int, the bad data is row: %d, colume: %d", count, countPixel);
+              break;
             }
-            pixelArray[countPixel] = num; 
             countPixel++;
           }
           
