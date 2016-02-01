@@ -9,6 +9,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.util.*;
 import java.io.*;
+import java.text.*;
 
 public class FilePanel extends JPanel{
   private Rectangle[] drawObjects = new Rectangle [10];
@@ -29,32 +30,35 @@ public class FilePanel extends JPanel{
       while (fileScan.hasNext()) {                   // process each line in the file
         String line = fileScan.nextLine();
         if (line.matches("\\d+ \\d+ \\d+ \\d+ \\d+ \\d+")) {
-          code
+          Scanner lineScan = new Scanner(line);
+          int countPixel = 0;
+          while (lineScan.hasNext()) {                  // process each colum for each line
+            try {
+              pixelArray[countPixel] = Integer.parseInt(lineScan.next()) ;
+            } catch (Exception e) {
+              System.out.format("There is some error when parsing String ==> int, the bad data is row: %d, colume: %d", count, countPixel);
+            } 
+            countPixel++;
+          }
+          
+          Color setColor = Color.black;      // Try to use enum to finish this!
+          switch (pixelArray[1]) {          // create the Color objects
+            case 1:
+              setColor = Color.red;
+              break;
+            case 2:
+              setColor = Color.blue;
+              break;
+            case 3:
+              setColor = Color.green;
+              break;
+            default:
+              setColor = Color.black;
+              break;
+          }
+          drawObjects[count] = new Rectangle(Boolean.parseBoolean(""+pixelArray[0]), setColor, pixelArray[2], pixelArray[3], pixelArray[4], pixelArray[5]);
+          count++;
         }
-        Scanner lineScan = new Scanner(line);
-        int countPixel = 0;
-        while (lineScan.hasNext()) {                  // process each colum for each line
-          pixelArray[countPixel] = Integer.parseInt(lineScan.next()) ;  
-          countPixel++;
-        }
-        
-        Color setColor = Color.black;      // Try to use enum to finish this!
-        switch (pixelArray[1]) {          // create the Color objects
-          case 1:
-            setColor = Color.red;
-            break;
-          case 2:
-            setColor = Color.blue;
-            break;
-          case 3:
-            setColor = Color.green;
-            break;
-          default:
-            setColor = Color.black;
-            break;
-        }
-        drawObjects[count] = new Rectangle(Boolean.parseBoolean(""+pixelArray[0]), setColor, pixelArray[2], pixelArray[3], pixelArray[4], pixelArray[5]);
-        count++;
       }
       
       
