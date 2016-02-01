@@ -9,12 +9,9 @@ class QSDemo {
 		char x, y;
 		
 		i = left, j = right;
-		x = items[(left+right)/2];
+		x = items[(left+right)/2];		// this is the index of middle array
 		
-		do {
-			while ((items[i] < x) && ) {
-				
-			}
-		} while (condition);
+		//
+
 	}
 }
