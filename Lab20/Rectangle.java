@@ -15,6 +15,8 @@ public class Rectangle{
   private int height;//height of Rectangle
   private boolean fill; //drawRect false or fillRect true
   
+  private static int totalCount;
+  private int thisCount;
   
   /*constructor for Rectangle*/
   public Rectangle(boolean fill, Color shade,int x, int y , int width, int height){
@@ -24,11 +26,14 @@ public class Rectangle{
     this.height = height;
     this.shade = shade;
     this.fill=fill;
+    totalCount++;
+    this.thisCount = totalCount;
   }
   
  /*draw this rectangle*/
     public void draw(Graphics g){
         g.setColor(shade);
+        g.drawString(this.thisCount + "of" + totalCount, x, y);
         if (fill ){
             g.fillRect(x, y, width, height);
         } else  {

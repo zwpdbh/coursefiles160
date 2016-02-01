@@ -35,7 +35,7 @@ public class FilePanel extends JPanel{
           countPixel++;
         }
         
-        Color setColor = Color.black;
+        Color setColor = Color.black;      // Try to use enum to finish this!
         switch (pixelArray[1]) {          // create the Color objects
           case 1:
             setColor = Color.red;
