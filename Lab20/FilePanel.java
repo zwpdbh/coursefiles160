@@ -28,6 +28,9 @@ public class FilePanel extends JPanel{
       int[] pixelArray = new int[6];
       while (fileScan.hasNext()) {                   // process each line in the file
         String line = fileScan.nextLine();
+        if (line.matches("\\d+ \\d+ \\d+ \\d+ \\d+ \\d+")) {
+          code
+        }
         Scanner lineScan = new Scanner(line);
         int countPixel = 0;
         while (lineScan.hasNext()) {                  // process each colum for each line
