@@ -26,6 +26,7 @@ public class Rectangle{
     this.height = height;
     this.shade = shade;
     this.fill=fill;
+    
     totalCount++;
     this.thisCount = totalCount;
   }
@@ -40,6 +41,8 @@ public class Rectangle{
             g.drawRect(x, y, width, height);
         }
     }
-  
+  public static int getTotal() {
+    return Rectangle.totalCount;
+  }
 }
 

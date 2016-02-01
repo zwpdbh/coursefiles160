@@ -12,7 +12,7 @@ import java.io.*;
 import java.text.*;
 
 public class FilePanel extends JPanel{
-  private Rectangle[] drawObjects = new Rectangle [10];
+  private Rectangle[] drawObjects = new Rectangle [11];
   private int count;
   
   
@@ -22,22 +22,25 @@ public class FilePanel extends JPanel{
 //    count++;
 //    drawObjects[count] = new Rectangle(false,Color.blue, 50, 50,30,30);
 //    count++;
-    String fileName = "Lab20data.txt";
+    String fileName = "LongBadData.txt";  
+    //String fileName = "BadData.txt";
     //int[] pixelArray = new int[6];
     try {
       Scanner fileScan = new Scanner(new File(fileName));
       int[] pixelArray = new int[6];
       while (fileScan.hasNext()) {                   // process each line in the file
         String line = fileScan.nextLine();
-        if (line.matches("\\d+ \\d+ \\d+ \\d+ \\d+ \\d+")) {
+        if (line.matches("\\d+ \\d+ \\d+ \\d+ \\d+ \\d+")) {   // 1. check if each line has delimiter patter
           Scanner lineScan = new Scanner(line);
           int countPixel = 0;
+          int num = -1;
           while (lineScan.hasNext()) {                  // process each colum for each line
             try {
-              pixelArray[countPixel] = Integer.parseInt(lineScan.next()) ;
-            } catch (Exception e) {
+              num = Integer.parseInt(lineScan.next());
+            } catch (NumberFormatException e) {
               System.out.format("There is some error when parsing String ==> int, the bad data is row: %d, colume: %d", count, countPixel);
-            } 
+            }
+            pixelArray[countPixel] = num; 
             countPixel++;
           }
           
@@ -56,7 +59,13 @@ public class FilePanel extends JPanel{
               setColor = Color.black;
               break;
           }
-          drawObjects[count] = new Rectangle(Boolean.parseBoolean(""+pixelArray[0]), setColor, pixelArray[2], pixelArray[3], pixelArray[4], pixelArray[5]);
+          try {
+            drawObjects[count] = new Rectangle(Boolean.parseBoolean(""+pixelArray[0]), setColor, pixelArray[2], pixelArray[3], pixelArray[4], pixelArray[5]);
+          } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.format("There are %d rectangles, but drawObjects's length is just %d:\n ", Rectangle.getTotal(), drawObjects.length);
+            break;
+          }
+          //drawObjects[count] = new Rectangle(Boolean.parseBoolean(""+pixelArray[0]), setColor, pixelArray[2], pixelArray[3], pixelArray[4], pixelArray[5]);
           count++;
         }
       }
