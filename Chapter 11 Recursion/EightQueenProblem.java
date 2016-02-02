@@ -12,7 +12,8 @@ class EightQueenProblem {
 //		queenBoard.setQueenTrack(3, 3);
 //		queenBoard.setQueenTrack(5, 1);
 		queenBoard.queenPostion(8);
-		queenBoard.showBoard();
+		//queenBoard.showBoard();
+		queenBoard.showTrack();
 		
 	}
 }
@@ -48,8 +49,9 @@ class Chessboard {
 	
 	// put a queen at select position and set associated postion invalid
 	public int[][] setQueenTrack(int indexOfRow, int indexOfCol) {		
-		board[indexOfRow][indexOfCol] = 1;			// 1 means invalid, default value is 0, means valid postion
-		track[indexOfRow][indexOfCol] = 1;
+		board[indexOfRow][indexOfCol] = 7;			// 1 means invalid, default value is 0, means valid postion
+		System.out.format("Row: %d\tCol: %d\n", indexOfRow, indexOfCol);
+		track[indexOfRow][indexOfCol] = 7;
 		// calculate those invalid postion and set them into 1;
 		int row = 0;
 		int col = 0;
@@ -57,10 +59,14 @@ class Chessboard {
 			for (row=0; row<=board.length-1; row++) {
 				for (col=0; col<=board[row].length-1; col++) {
 					if (row == indexOfRow || col == indexOfCol) {
-						board[row][col] = 1;
+						if (row!=indexOfRow&&col!=indexOfCol) {
+							board[row][col] = 1;
+						}
 					}
 					if (Math.abs(row - indexOfRow) == Math.abs(col - indexOfCol)) {
-						board[row][col] = 1;
+						if (row!=indexOfRow&&col!=indexOfCol) {
+							board[row][col] = 1;
+						}
 					}
 				}
 			}
@@ -68,7 +74,7 @@ class Chessboard {
 			System.out.format("indexOfRow: %d\tindexOfCol: %d\trow: %d\tcol: %d\n", indexOfRow, indexOfCol, row, col);
 		}
 		
-		//showBoard();
+		showBoard();
 		return this.board;
 	}
 	
@@ -81,5 +87,16 @@ class Chessboard {
 			System.out.println();
 		}
 		System.out.println("");
-	}	
+	}
+	
+	public void showTrack() {
+		for (int[] row: this.track) {
+			for (int col: row) {
+				System.out.format("%d ", col);
+			}
+			System.out.println();
+		}
+		System.out.println("");
+	}
+	
 }
