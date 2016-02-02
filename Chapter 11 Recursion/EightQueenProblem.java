@@ -78,14 +78,14 @@ class Chessboard {
 		}
 	}
 	
-	private int[] validPostionInRow(int indexOfRow) {
-		// run through the each col, and compare it with each coordinate in track, those available one add into collection.
-		for (int col=0; col<this.board[indexOfRow].length; col++) {
-			if
-		}
-		
-		return 
-	}
+//	private int[] validPostionInRow(int indexOfRow) {
+//		// run through the each col, and compare it with each coordinate in track, those available one add into collection.
+//		for (int col=0; col<this.board[indexOfRow].length; col++) {
+//			if
+//		}
+//		
+//		return 
+//	}
 	
 	/**run through the recored track, and set their blocking postion, then check to see if the input position is valid or not*/
 	private boolean isValid(int indexRow, int indexCol) {
