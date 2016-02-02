@@ -6,11 +6,12 @@ There are no other chess pieces on the board.*/
 class EightQueenProblem {
 	public static void main(String[] args) {
 		
-		Chessboard queenBoard = new  Chessboard(8, 8, 8);
+		Chessboard queenBoard = new  Chessboard(8, 8);
 		queenBoard.showBoard();
 		
 		queenBoard.setQueenTrack(3, 3);
 		queenBoard.setQueenTrack(5, 1);
+		
 	}
 }
 
@@ -19,35 +20,31 @@ class Chessboard {
 //	private int row;
 //	private int col;
 	private int[][] board;
-	private int queenLeft;
 	
 	// Constructor to initialize the chessboard.
-	public Chessboard(int row, int col, int numOfQueen) {
+	public Chessboard(int row, int col) {
 //		this.row = row - 1;
 //		this.col = col - 1;
 		this.board = new int[row][col];
-		this.queenLeft = numOfQueen;		// at beginning, there are 8 queen left.
 	}
 	
 	// the method to position a queen, do recursion on itself
-	public queenPostion(int indexOfRow, int indexOfCol) {
-		if queenLeft == 0 {
-			System.out.println("Done");
-			return;
-		} else {
-			int startAtRow = 8 - queenLeft;
-			if (startAtRow == 7) {  // 1 queenleft, startAtRow = 7, means just position the queen at last row.
-				for (int col: this.board[startAtRow]) {
-					if (this.board[startAtRow][col] == 0) {
-						setQueenTrack(startAtRow, col);
-						queenLeft-1;
-					} else {
-						continue;
-					}
-				}
-			}
-		}
-	}
+//	public queenPostion(int indexOfRow) {
+//		if (indexOfRow == 0) {
+//			setQueenTrack(indexOfRow, 0);
+//		} else {
+//			if (indexOfRow ) {
+//				code
+//			}
+//			for (int col: board[indexOfRow]) {
+//				if (board[indexOfRow][col] != 1) {
+//					setQueenTrack(indexOfRow, col);
+//				} else {
+//					code
+//				}
+//			}
+//		}
+//	}
 	
 	// put a queen at select position and set associated postion invalid
 	public int[][] setQueenTrack(int indexOfRow, int indexOfCol) {		
