@@ -9,8 +9,6 @@ class EightQueenProblem {
 		Chessboard queenBoard = new  Chessboard(8, 8);
 		queenBoard.showBoard();
 		
-//		queenBoard.setQueenTrack(3, 3);
-//		queenBoard.setQueenTrack(5, 1);
 		queenBoard.queenPostion(8);
 		queenBoard.showTrack();
 		queenBoard.showBoard();
