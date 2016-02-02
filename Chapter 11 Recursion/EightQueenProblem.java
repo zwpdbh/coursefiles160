@@ -9,46 +9,47 @@ class EightQueenProblem {
 		Chessboard queenBoard = new  Chessboard(8, 8);
 		queenBoard.showBoard();
 		
-		queenBoard.setQueenTrack(3, 3);
-		queenBoard.setQueenTrack(5, 1);
+//		queenBoard.setQueenTrack(3, 3);
+//		queenBoard.setQueenTrack(5, 1);
+		queenBoard.queenPostion(8);
+		queenBoard.showBoard();
 		
 	}
 }
 
 
 class Chessboard {
-//	private int row;
-//	private int col;
 	private int[][] board;
-	
+	private int[][] track;
 	// Constructor to initialize the chessboard.
 	public Chessboard(int row, int col) {
-//		this.row = row - 1;
-//		this.col = col - 1;
 		this.board = new int[row][col];
+		this.track = new int[row][col];
 	}
 	
 	// the method to position a queen, do recursion on itself
-//	public queenPostion(int indexOfRow) {
-//		if (indexOfRow == 0) {
-//			setQueenTrack(indexOfRow, 0);
-//		} else {
-//			if (indexOfRow ) {
-//				code
-//			}
-//			for (int col: board[indexOfRow]) {
-//				if (board[indexOfRow][col] != 1) {
-//					setQueenTrack(indexOfRow, col);
-//				} else {
-//					code
-//				}
-//			}
-//		}
-//	}
+	public void queenPostion(int queenToPut) {
+		if (queenToPut == 0) {
+			System.out.println("Done");
+		} else {
+			// find a valid postion at last row
+			int indexRow = board.length - queenToPut;
+			System.out.format("There are %d queen left, need to put queen at row: %d \n", queenToPut, indexRow);
+			for (int col: this.board[indexRow]) {
+				if (board[indexRow][col] == 0) {
+					setQueenTrack(indexRow, col);
+					break;
+				}
+			}
+			System.out.format("Try to queenPostion(%d) \n", queenToPut-1);
+			queenPostion(queenToPut-1);
+		}
+	}
 	
 	// put a queen at select position and set associated postion invalid
 	public int[][] setQueenTrack(int indexOfRow, int indexOfCol) {		
 		board[indexOfRow][indexOfCol] = 1;			// 1 means invalid, default value is 0, means valid postion
+		track[indexOfRow][indexOfCol] = 1;
 		// calculate those invalid postion and set them into 1;
 		int row = 0;
 		int col = 0;
@@ -67,10 +68,11 @@ class Chessboard {
 			System.out.format("indexOfRow: %d\tindexOfCol: %d\trow: %d\tcol: %d\n", indexOfRow, indexOfCol, row, col);
 		}
 		
-		showBoard();
+		//showBoard();
 		return this.board;
 	}
 	
+	// Print out the chessboard.
 	public void showBoard() {
 		for (int[] row: this.board) {
 			for (int col: row) {
