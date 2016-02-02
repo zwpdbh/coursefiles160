@@ -12,6 +12,7 @@ class EightQueenProblem {
 //		queenBoard.setQueenTrack(3, 3);
 //		queenBoard.setQueenTrack(5, 1);
 		queenBoard.queenPostion(8);
+		queenBoard.showTrack();
 		queenBoard.showBoard();
 		
 	}
@@ -26,7 +27,7 @@ class Chessboard {
 	/**Constructor */
 	public Chessboard(int row, int col) {
 		this.board = new int[row][col];
-		this.track = new int[6][2];
+		this.track = new int[row][2];
 		this.row = row;
 		this.col = col;
 	}
@@ -35,18 +36,39 @@ class Chessboard {
 	public void queenPostion(int queenToPut) {
 		if (queenToPut == 0) {
 			System.out.println("Done");
+			
+			// put mark in the position according to track
+			for (int[] coordinate: this.track) {
+				this.board[coordinate[0]][coordinate[1]] = 1;
+			}
 		} else {
 			// find a valid postion at current row
 			int indexRow = board.length - queenToPut;
 			System.out.format("There are %d queen left, need to put queen at row: %d \n", queenToPut, indexRow);
-			for (int col: this.board[indexRow]) {
+			for (int col=0; col<board[indexRow].length; col++) {
 				if (isValid(indexRow, col)) {
+					System.out.format("The valid coordinate are: %d, %d\n", indexRow, col);
 					board[indexRow][col] = 7;
 					track[indexRow][0] = indexRow;
-					track[indexRow][1] = col; 
-					break;
+					track[indexRow][1] = col;
+					break; 
+				} else {
+					System.out.format("Coordinate: %d, %d is not valid\n", indexRow, col);
+					continue;
 				}
 			}
+//			for (int col: this.board[indexRow]) {
+//				if (isValid(indexRow, col)) {
+//					System.out.format("The valid coordinate are: %d, %d\n", indexRow, col);
+//					board[indexRow][col] = 7;
+//					track[indexRow][0] = indexRow;
+//					track[indexRow][1] = col; 
+//					break;
+//				} else {
+//					System.out.format("Coordinate: %d, %d is not valid\n", indexRow, col);
+//					continue;
+//				}
+//			}
 			System.out.format("Try to queenPostion(%d) \n", queenToPut-1);
 			queenPostion(queenToPut-1);
 		}
@@ -54,11 +76,13 @@ class Chessboard {
 	
 	/**run through the recored track, and set their blocking postion, then check to see if the input position is valid or not*/
 	private boolean isValid(int indexRow, int indexCol) {
-		int[][] chessCopy = new int[row][col];
-		for (int[] getTrack: track) {
-			blockQueenPostion(getTrack[0], getTrack[1], chessCopy);
+		int[][] chessCopy = new int[this.row][this.col];
+
+		for (int row=0; row<=indexRow; row++) {
+			blockQueenPostion(track[row][0], track[row][1], chessCopy);
+			System.out.format("Blocking postion: %d, %d\n", track[row][0], track[row][1]);
 		}
-		
+				
 		if (chessCopy[indexRow][indexCol] == 1) {
 			return false;
 		} else {
@@ -100,6 +124,12 @@ class Chessboard {
 			System.out.println();
 		}
 		System.out.println("");
+	}
+	
+	public void showTrack() {
+		for (int[] corrdinate: track) {
+			//System.out.format("%d, %d\n", corrdinate[0], corrdinate[1]);
+		}
 	}
 		
 }
