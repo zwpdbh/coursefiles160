@@ -31,8 +31,8 @@ class Chessboard {
 	}
 	
 	// the method to position a queen, do recursion on itself
-	public void queenPostion(int queenToPut) {
-		if (queenToPut == 0) {
+	public void queenPostion(int queenLeftToPut) {
+		if (queenLeftToPut == 0) {
 			System.out.println("Done");
 			
 			// put mark in the position according to track
@@ -41,8 +41,8 @@ class Chessboard {
 			}
 		} else {
 			// find a valid postion at current row
-			int indexRow = board.length - queenToPut;
-			System.out.format("There are %d queen left, need to put queen at row: %d \n", queenToPut, indexRow);
+			int indexRow = board.length - queenLeftToPut;
+			System.out.format("There are %d queen left, need to put queen at row: %d \n", queenLeftToPut, indexRow);
 			// run via entire row to find aviliable postion.
 			for (int col=0; col<board[indexRow].length; col++) {
 				if (isValid(indexRow, col)) {
@@ -53,6 +53,11 @@ class Chessboard {
 					break; 
 				} else {
 					System.out.format("Coordinate: %d, %d is not valid\n", indexRow, col);
+					if (col == this.col) {  // it means it run out option, it has to let its previous one change position.
+						track[indexRow-1][0] = 0;
+						track[indexRow-1][1] = 1;
+						queenPostion(queenLeftToPut+1);
+					}
 					continue;
 				}
 			}
@@ -68,9 +73,18 @@ class Chessboard {
 //					continue;
 //				}
 //			}
-			System.out.format("Try to queenPostion(%d) \n", queenToPut-1);
-			queenPostion(queenToPut-1);
+			System.out.format("Try to queenPostion(%d) \n", queenLeftToPut-1);
+			queenPostion(queenLeftToPut-1);
 		}
+	}
+	
+	private int[] validPostionInRow(int indexOfRow) {
+		// run through the each col, and compare it with each coordinate in track, those available one add into collection.
+		for (int col=0; col<this.board[indexOfRow].length; col++) {
+			if
+		}
+		
+		return 
 	}
 	
 	/**run through the recored track, and set their blocking postion, then check to see if the input position is valid or not*/
@@ -132,3 +146,16 @@ class Chessboard {
 	}
 		
 }
+
+
+/**
+	Object: Put 8 queens into chessboard
+	if	There 7 has been put
+			if	the left one can put into the available position.
+				There are 8 has been put, mission complete
+			else there 6 has been put
+				the 7th can put next available position
+			 
+	put 7 queens into chessboard
+	
+*/
