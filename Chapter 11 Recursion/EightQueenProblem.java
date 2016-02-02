@@ -43,6 +43,7 @@ class Chessboard {
 			// find a valid postion at current row
 			int indexRow = board.length - queenToPut;
 			System.out.format("There are %d queen left, need to put queen at row: %d \n", queenToPut, indexRow);
+			// run via entire row to find aviliable postion.
 			for (int col=0; col<board[indexRow].length; col++) {
 				if (isValid(indexRow, col)) {
 					System.out.format("The valid coordinate are: %d, %d\n", indexRow, col);
