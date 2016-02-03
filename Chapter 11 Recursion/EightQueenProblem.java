@@ -6,7 +6,7 @@ There are no other chess pieces on the board.*/
 class EightQueenProblem {
 	public static void main(String[] args) {
 		
-		Chessboard queenBoard = new  Chessboard(4);
+		Chessboard queenBoard = new  Chessboard(5);
 		queenBoard.callPutQueensAt();
 	}
 }
