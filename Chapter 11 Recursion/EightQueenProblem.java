@@ -6,8 +6,8 @@ There are no other chess pieces on the board.*/
 class EightQueenProblem {
 	public static void main(String[] args) {
 		
-		Chessboard queenBoard = new  Chessboard(8);
-	
+		Chessboard queenBoard = new  Chessboard(4);
+		queenBoard.callPutQueensAt();
 	}
 }
 
@@ -21,37 +21,70 @@ class Chessboard {
 	public Chessboard(int size) {
 		this.board = new int[size][size];
 		this.size = size;
+		this.track = new int[size];
 	}
 	
 	/** helper method to call the recursive function*/
-	public callPutQueensAt() {
-		putQueens(0, 8);
+	public void callPutQueensAt() {
+		putQueensAt(0, 8);
 	}
 	
 	public void putQueensAt(int currentRow, int queensLeft) {
 		if (queensLeft == 0) {
-			System.out.println("Find a solution");
-			return
+			printOutTrack(track);
 		}
-
+		
 		// run through every column on current row
 		for (int col=0; col<size; col++) {
 			// if find valid postion on current row, put queen there, call method on next row, queens number - 1
 			if (isOK(currentRow, col)) {
-				code
-			}
+				// System.out.format("row: %d, col: %d\n", currentRow, col);
+				// if find a avalid postion, put its coordinate into track array, array index means indexRow, value means indexCol
+				track[currentRow] = col;
+				if (currentRow == size - 1) {
+					printOutTrack(track);
+				} else {
+					putQueensAt(currentRow+1, queensLeft-1);
+				}
+				//printOutTrack(track);
+			} 
 		}
-		// after run through current column, there is no available postion, we need go back to previous row and try its next available postion.
-		putQueensAt(currentRow+1, queensLeft-1);
-
+		//putQueensAt(currentRow+1, queensLeft-1);
 	}
 	
-	
-	public boolean isOK(int indexOfRow, indexOfCol) {
-		
-		return false;
+	/**run through previous track, use coordinate to make compare, return true if available*/
+	public boolean isOK(int indexOfRow, int indexOfCol) {
+		try {
+			for (int row=0; row<indexOfRow; row++) {
+				if (track[row]==indexOfCol || (Math.abs(indexOfRow-row) == Math.abs(track[row]-indexOfCol))) {
+					return false;
+				}
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("indexOfRow: " + indexOfRow + " indexOfCol: " + indexOfCol);
+		}
+//		for (int row=0; row<indexOfRow; row++) {
+//			if (track[row]==indexOfCol || (Math.abs(indexOfRow-row) == Math.abs(track[row]-indexOfCol))) {
+//				return false;
+//			}
+//		}
+		return true;
 	}
 	
+	/**run through track, print out a chessboard and with track postion on it*/
+	public void printOutTrack(int[] track) {
+		for (int col=0; col<size; col++) {
+			for (int row=0; row<size; row++) {
+				if (track[col] == row) {	
+					System.out.print("Q ");
+				} else {
+					System.out.print("* ");
+				}
+			}
+			System.out.println();
+		}
+		System.out.println();
+	}
 		
 }
 
