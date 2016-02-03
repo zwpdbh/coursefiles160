@@ -2,7 +2,7 @@
 
 public class TriangleNumber {
 	public static void main(String[] args) {
-		PascalsTriangle triangle = new  PascalsTriangle(5);
+		PascalsTriangle triangle = new  PascalsTriangle(9);
 		triangle.printTriangle();
 	}
 }
@@ -10,24 +10,59 @@ public class TriangleNumber {
 
 class PascalsTriangle {
 	private int line;
+	//private int[][] triangle;
 	
+	/**Constructor*/
 	public PascalsTriangle(int line) {
 		this.line = line;
+		//triangle = new int[line][line];
 	}
 	
+	/**print all lines*/ 
 	public void printTriangle() {
-		getNumber(line);
+		for (int row=1; row<=line; row++) {
+			int[] numArray = getNumber(row);
+			String whitespace = returnBlank(line-row);
+			System.out.print(whitespace);
+			printArray(numArray);
+		}
 	}
 	
-	public void getNumber(int indexOfRow) {
+	/** get numbers from current row, as int[]*/
+	private int[] getNumber(int indexOfRow) {
+		if (indexOfRow == 1) {
+			int[] one = new int[1];
+			one[0] = 1;
+			return one;
+		}
 		int[] row = new int[indexOfRow];
 		for (int index=0; index<indexOfRow; index++) {
 			if (index == 0 || index==indexOfRow-1) {
-				row[index]=1
+				row[index]=1;
 			} else {
-				row[index] = getNumber(indexOfRow-1)
+				int[] previousRow = getNumber(indexOfRow-1);
+				row[index] = previousRow[index-1] + previousRow[index];
 			}
+		}// end loop
+
+		return row;
+	}
+	
+	/**print the numbers in the int[]*/
+	private void printArray(int[] numArray) {
+		//System.out.print(numArray.length + ": ");
+		for (int index=0; index<numArray.length; index++) {
+			System.out.print(numArray[index] + "   ");
 		}
+		System.out.println();
+	}
+	
+	private String returnBlank(int num) {
+		String whitespace = " ";
+		for (int i=0; i<num; i++) {
+			whitespace += "   ";
+		}
+		return whitespace;
 	}
 }
 
