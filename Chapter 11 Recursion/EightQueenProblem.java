@@ -26,30 +26,21 @@ class Chessboard {
 	
 	/** helper method to call the recursive function*/
 	public void callPutQueensAt() {
-		putQueensAt(0, 8);
+		putQueensAt(0);
 	}
 	
-	public void putQueensAt(int currentRow, int queensLeft) {
-		if (queensLeft == 0) {
-			printOutTrack(track);
-		}
-		
-		// run through every column on current row
+	
+	/**at current row put queen*/
+	public void putQueensAt(int currentRow) {
 		for (int col=0; col<size; col++) {
-			// if find valid postion on current row, put queen there, call method on next row, queens number - 1
 			if (isOK(currentRow, col)) {
-				// System.out.format("row: %d, col: %d\n", currentRow, col);
-				// if find a avalid postion, put its coordinate into track array, array index means indexRow, value means indexCol
 				track[currentRow] = col;
-				if (currentRow == size - 1) {
+				putQueensAt(currentRow+1);
+				if (currentRow==size-1) {
 					printOutTrack(track);
-				} else {
-					putQueensAt(currentRow+1, queensLeft-1);
 				}
-				//printOutTrack(track);
-			} 
+			}
 		}
-		//putQueensAt(currentRow+1, queensLeft-1);
 	}
 	
 	/**run through previous track, use coordinate to make compare, return true if available*/
