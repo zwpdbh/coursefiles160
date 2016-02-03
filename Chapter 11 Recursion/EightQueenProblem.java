@@ -6,156 +6,54 @@ There are no other chess pieces on the board.*/
 class EightQueenProblem {
 	public static void main(String[] args) {
 		
-		Chessboard queenBoard = new  Chessboard(8, 8);
-		queenBoard.showBoard();
-		
-		queenBoard.queenPostion(8);
-		queenBoard.showTrack();
-		queenBoard.showBoard();
-		
+		Chessboard queenBoard = new  Chessboard(8);
+	
 	}
 }
 
 
 class Chessboard {
 	private int[][] board;
-	private int[][] track;
-	private int row, col;
+	private int size;
+	private int[] track;
 	
 	/**Constructor */
-	public Chessboard(int row, int col) {
-		this.board = new int[row][col];
-		this.track = new int[row][2];
-		this.row = row;
-		this.col = col;
+	public Chessboard(int size) {
+		this.board = new int[size][size];
+		this.size = size;
 	}
 	
-	// the method to position a queen, do recursion on itself
-	public void queenPostion(int queenLeftToPut) {
-		if (queenLeftToPut == 0) {
-			System.out.println("Done");
-			
-			// put mark in the position according to track
-			for (int[] coordinate: this.track) {
-				this.board[coordinate[0]][coordinate[1]] = 1;
-			}
-		} else {
-			// find a valid postion at current row
-			int indexRow = board.length - queenLeftToPut;
-			System.out.format("There are %d queen left, need to put queen at row: %d \n", queenLeftToPut, indexRow);
-			// run via entire row to find aviliable postion.
-			for (int col=0; col<board[indexRow].length; col++) {
-				if (isValid(indexRow, col)) {
-					System.out.format("The valid coordinate are: %d, %d\n", indexRow, col);
-					board[indexRow][col] = 7;
-					track[indexRow][0] = indexRow;
-					track[indexRow][1] = col;
-					break; 
-				} else {
-					System.out.format("Coordinate: %d, %d is not valid\n", indexRow, col);
-					if (col == this.col) {  // it means it run out option, it has to let its previous one change position.
-						track[indexRow-1][0] = 0;
-						track[indexRow-1][1] = 1;
-						queenPostion(queenLeftToPut+1);
-					}
-					continue;
-				}
-			}
-//			for (int col: this.board[indexRow]) {
-//				if (isValid(indexRow, col)) {
-//					System.out.format("The valid coordinate are: %d, %d\n", indexRow, col);
-//					board[indexRow][col] = 7;
-//					track[indexRow][0] = indexRow;
-//					track[indexRow][1] = col; 
-//					break;
-//				} else {
-//					System.out.format("Coordinate: %d, %d is not valid\n", indexRow, col);
-//					continue;
-//				}
-//			}
-			System.out.format("Try to queenPostion(%d) \n", queenLeftToPut-1);
-			queenPostion(queenLeftToPut-1);
+	/** helper method to call the recursive function*/
+	public callPutQueensAt() {
+		putQueens(0, 8);
+	}
+	
+	public void putQueensAt(int currentRow, int queensLeft) {
+		if (queensLeft == 0) {
+			System.out.println("Find a solution");
+			return
 		}
-	}
-	
-//	private int[] validPostionInRow(int indexOfRow) {
-//		// run through the each col, and compare it with each coordinate in track, those available one add into collection.
-//		for (int col=0; col<this.board[indexOfRow].length; col++) {
-//			if
-//		}
-//		
-//		return 
-//	}
-	
-	/**run through the recored track, and set their blocking postion, then check to see if the input position is valid or not*/
-	private boolean isValid(int indexRow, int indexCol) {
-		int[][] chessCopy = new int[this.row][this.col];
 
-		for (int row=0; row<=indexRow; row++) {
-			blockQueenPostion(track[row][0], track[row][1], chessCopy);
-			System.out.format("Blocking postion: %d, %d\n", track[row][0], track[row][1]);
-		}
-				
-		if (chessCopy[indexRow][indexCol] == 1) {
-			return false;
-		} else {
-			return true;
-		}	
-	}
-	
-	
-	// put a queen at select position and set associated postion invalid
-	public void blockQueenPostion(int indexOfRow, int indexOfCol, int[][] copyBorad) {
-		copyBorad[indexOfRow][indexOfCol] = 1;			
-		//System.out.format("Row: %d\tCol: %d\n", indexOfRow, indexOfCol);
-		// calculate those invalid postion and set them into 1;
-		int row = 0;
-		int col = 0;
-		try {
-			for (row=0; row<=copyBorad.length-1; row++) {
-				for (col=0; col<=copyBorad[row].length-1; col++) {
-					if (row == indexOfRow || col == indexOfCol) {
-						copyBorad[row][col] = 1;
-					}
-					if (Math.abs(row - indexOfRow) == Math.abs(col - indexOfCol)) {
-						copyBorad[row][col] = 1;
-					}
-				}
+		// run through every column on current row
+		for (int col=0; col<size; col++) {
+			// if find valid postion on current row, put queen there, call method on next row, queens number - 1
+			if (isOK(currentRow, col)) {
+				code
 			}
-		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.format("indexOfRow: %d\tindexOfCol: %d\trow: %d\tcol: %d\n", indexOfRow, indexOfCol, row, col);
 		}
+		// after run through current column, there is no available postion, we need go back to previous row and try its next available postion.
+		putQueensAt(currentRow+1, queensLeft-1);
 
 	}
 	
-	// Print out the chessboard.
-	public void showBoard() {
-		for (int[] row: this.board) {
-			for (int col: row) {
-				System.out.format("%d ", col);
-			}
-			System.out.println();
-		}
-		System.out.println("");
+	
+	public boolean isOK(int indexOfRow, indexOfCol) {
+		
+		return false;
 	}
 	
-	public void showTrack() {
-		for (int[] corrdinate: track) {
-			//System.out.format("%d, %d\n", corrdinate[0], corrdinate[1]);
-		}
-	}
 		
 }
 
 
-/**
-	Object: Put 8 queens into chessboard
-	if	There 7 has been put
-			if	the left one can put into the available position.
-				There are 8 has been put, mission complete
-			else there 6 has been put
-				the 7th can put next available position
-			 
-	put 7 queens into chessboard
-	
-*/
+
