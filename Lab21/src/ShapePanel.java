@@ -9,7 +9,7 @@ import java.awt.event.*;
 public class ShapePanel extends JPanel {
     private Shape[] shapes = new Shape[20];
     private DrawingPanel drawingPanel;
-    private JPanel controlPanle;
+    private JPanel controlPanel;
     private JButton addShape = new JButton("Add Shape");
     private JTextField showNum;
     private JLabel countLabel = new JLabel("Count");
@@ -25,11 +25,11 @@ public class ShapePanel extends JPanel {
         addShape.addActionListener(new ButtonListener());
 
         controlPanel.add(addShape);
-        controlPanel.add(showNum);
         controlPanel.add(countLabel);
+        controlPanel.add(showNum);
+        
+        controlPanel.setPreferredSize(new Dimension(100, 400));
         add(controlPanel);
-        setPreferredSize(new Dimension(100, 400));
-
     }
 
     public static void main(String[] args) {
