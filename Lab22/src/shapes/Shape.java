@@ -22,6 +22,11 @@ public class Shape {
         this.x = randomeRange(0, 400 - width);
         this.y = randomeRange(0, 400 - height);
         this.color = new Color(randomeRange(0,255), randomeRange(0,255), randomeRange(0, 255));
+
+        // If shapes initially draw in the lower half of the screen, they travel upwards rather then downwards
+        if (y > 200) {
+            moveY = -1;
+        }
     }
 
     // (10) -> [0, 9],  20-30 -> (30-20)
@@ -36,16 +41,17 @@ public class Shape {
     }
 
     public void move() {
+        // bounce back when meet boundary
+        if (y<=0 || y >= (400-height)) {
+            moveY = -moveY;
+        } else if (x<=0 || x >= (400-width)) {
+            moveX = -moveX;
+        }
+        // size bigger than 15, move up and down, smaller one move left and right
         if (width >= 15) {
             y += moveY;
-            if (y<=0 || y >= (400-height)) {
-                moveY = -moveY;
-            }
         } else {
             x += moveX;
-            if (x<=0 || x >= (400-width)) {
-                moveX = -moveX;
-            }
         }
     }
 
