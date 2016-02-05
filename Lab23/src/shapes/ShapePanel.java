@@ -14,12 +14,13 @@ public class ShapePanel extends JPanel {
     private Shape[] shapes;
     private DrawingPanel drawingPanel;
     private JPanel controlPanel;
-    private JButton addShape = new JButton("Add Shape");
+    // private JButton addShape = new JButton("Add Shape");
+    private JButton[] buttons = {new JButton("Circle"), new JButton("Square"), new JButton("Oval"), new JButton("Smile"), new JButton("Start"), new JButton("Stop")};
     private JTextField showNum;
     private JLabel countLabel = new JLabel("Count");
     private int count = 0;
 
-    private JButton start, stop;
+    // private JButton start, stop;
     private Timer timer;
     private final int DELAY = 10;
 
@@ -37,28 +38,33 @@ public class ShapePanel extends JPanel {
     public ShapePanel() {
         shapes = new Shape[20];
         JPanel controlPanel = new JPanel();     // control panel
-        addShape = new JButton("Add Shape");    // button
+        // addShape = new JButton("Add Shape");    // button
         showNum = new JTextField(2);            // textField
         countLabel = new JLabel("Count");       // label
         drawingPanel = new DrawingPanel();      // the drawing panel
-        start = new JButton("Start");           // start button
-        stop = new JButton("Stop");             // stop button
+        // start = new JButton("Start");           // start button
+        // stop = new JButton("Stop");             // stop button
 
-        controlPanel.add(addShape);             // add button, textField, label into the control panel
+        ButtonListener actionListener = new ButtonListener();
+        for (JButton button: buttons) {
+            button.addActionListener(actionListener);
+            add(button);
+        }
+        //controlPanel.add(addShape);             // add button, textField, label into the control panel
         controlPanel.add(countLabel);
         controlPanel.add(showNum);
 
-        controlPanel.add(start);
-        controlPanel.add(stop);
+        //controlPanel.add(start);
+        //controlPanel.add(stop);
         controlPanel.setPreferredSize(new Dimension(100, 400)); // set control panel's size
 
         add(controlPanel);                      // add control panel and drawing panel into Shape panel
         add(drawingPanel);
 
-        ButtonListener actionListener = new ButtonListener();
-        addShape.addActionListener(actionListener);
-        start.addActionListener(actionListener);
-        stop.addActionListener(actionListener);
+
+//        addShape.addActionListener(actionListener);
+//        start.addActionListener(actionListener);
+//        stop.addActionListener(actionListener);
 
         // set timer
         timer = new Timer(DELAY,actionListener);
