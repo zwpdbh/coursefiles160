@@ -38,33 +38,22 @@ public class ShapePanel extends JPanel {
     public ShapePanel() {
         shapes = new Shape[20];
         JPanel controlPanel = new JPanel();     // control panel
-        // addShape = new JButton("Add Shape");    // button
         showNum = new JTextField(2);            // textField
         countLabel = new JLabel("Count");       // label
         drawingPanel = new DrawingPanel();      // the drawing panel
-        // start = new JButton("Start");           // start button
-        // stop = new JButton("Stop");             // stop button
 
         ButtonListener actionListener = new ButtonListener();
         for (JButton button: buttons) {
             button.addActionListener(actionListener);
-            add(button);
+            controlPanel.add(button);
         }
-        //controlPanel.add(addShape);             // add button, textField, label into the control panel
+
         controlPanel.add(countLabel);
         controlPanel.add(showNum);
-
-        //controlPanel.add(start);
-        //controlPanel.add(stop);
         controlPanel.setPreferredSize(new Dimension(100, 400)); // set control panel's size
 
         add(controlPanel);                      // add control panel and drawing panel into Shape panel
         add(drawingPanel);
-
-
-//        addShape.addActionListener(actionListener);
-//        start.addActionListener(actionListener);
-//        stop.addActionListener(actionListener);
 
         // set timer
         timer = new Timer(DELAY,actionListener);
@@ -72,19 +61,8 @@ public class ShapePanel extends JPanel {
 
     private class ButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == addShape) {
-                if (count<20) {
-                    Shape item = new Circle();
-                    System.out.println(item);
-                    shapes[count] = item;
-                    count++;
-                } else {
-                    System.out.println("You reached 20 limit");
-                }
-            } else if (e.getSource() == stop) {
-                timer.stop();
-            } else {
-                timer.start();
+
+            if (e.getSource() == timer) {
                 try {
                     for (Shape item: shapes) {
                         item.move();
@@ -92,9 +70,27 @@ public class ShapePanel extends JPanel {
                 } catch (NullPointerException event) {
                     System.out.println("There is no object to move");
                 }
+            } else {
+                JButton button = (JButton) e.getSource();
+                String str = button.getText().toLowerCase();
+                if (str.equals("stop")) {
+                    timer.stop();
+                } else if (str.equals("start")) {
+                    timer.start();
+                } else {
+                    if (count<20) {
+                        Shape item = new Circle();
+                        System.out.println(item);
+                        shapes[count] = item;
+                        count++;
+                    } else {
+                        System.out.println("You reached 20 limit");
+                    }
+                }
+
+                showNum.setText(""+count);
             }
 
-            countLabel.setText(""+count);
             repaint();
         }
     }
