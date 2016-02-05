@@ -49,17 +49,18 @@ public class ShapePanel extends JPanel {
 
     private class ButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            Shape item = new Shape();
             if (e.getSource() == addShape) {
                 if (count<20) {
+                    Shape item = new Shape();
                     System.out.println(item);
                     shapes[count] = item;
                     count++;
                 } else {
-                    System.out.println(count);
+                    System.out.println("You reached 20 limit");
                 }
             }
             countLabel.setText(""+count);
+            repaint();
         }
     }
 
@@ -71,14 +72,14 @@ public class ShapePanel extends JPanel {
 
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
-            for (int i=0; i<shapes.length; i++) {
-                try {
+            try {
+                for (int i=0; i<shapes.length; i++) {
                     shapes[i].display(g);
                 }
-                catch (NullPointerException e) {
-                    System.out.println("There is no Shape object to draw");
-                }
+            } catch (NullPointerException e) {
+                System.out.println("There is no Shape object to draw");
             }
+
         }
     }
 
