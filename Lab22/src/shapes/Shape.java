@@ -36,8 +36,17 @@ public class Shape {
     }
 
     public void move() {
-        x += moveX;
-        y += moveY;
+        if (width >= 15) {
+            y += moveY;
+            if (y<=0 || y >= (400-height)) {
+                moveY = -moveY;
+            }
+        } else {
+            x += moveX;
+            if (x<=0 || x >= (400-width)) {
+                moveX = -moveX;
+            }
+        }
     }
 
     public String toString() {
