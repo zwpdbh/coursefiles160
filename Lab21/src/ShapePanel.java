@@ -15,6 +15,16 @@ public class ShapePanel extends JPanel {
     private JLabel countLabel = new JLabel("Count");
     private int count;
 
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Lab Drawing");
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        frame.getContentPane().add(new ShapePanel());
+        frame.pack();
+        frame.setVisible(true);
+
+    }
+
     /**Constructor*/
     public ShapePanel() {
         JPanel controlPanel = new JPanel();
@@ -27,23 +37,29 @@ public class ShapePanel extends JPanel {
         controlPanel.add(addShape);
         controlPanel.add(countLabel);
         controlPanel.add(showNum);
-        
+
         controlPanel.setPreferredSize(new Dimension(100, 400));
         add(controlPanel);
+
+        drawingPanel = new DrawingPanel();  // Add draw panel
+        add(drawingPanel);
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Lab Drawing");
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
-        frame.getContentPane().add(new ShapePanel());
-        frame.pack();
-        frame.setVisible(true);
-
-    }
 
     private class ButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    private class DrawingPanel extends JPanel {
+        public DrawingPanel() {
+            setPreferredSize(new Dimension(400, 400));
+            setBackground(Color.pink);
+        }
+
+        public void paintComponent(Graphics g) {
+            super.paintComponent(g);
 
         }
     }
