@@ -19,6 +19,10 @@ public class ShapePanel extends JPanel {
     private JLabel countLabel = new JLabel("Count");
     private int count = 0;
 
+    private JButton start, stop;
+    private Timer timer;
+    private final int DELAY = 10;
+
     public static void main(String[] args) {
         JFrame frame = new JFrame("Lab Drawing");
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -37,16 +41,27 @@ public class ShapePanel extends JPanel {
         showNum = new JTextField(2);            // textField
         countLabel = new JLabel("Count");       // label
         drawingPanel = new DrawingPanel();      // the drawing panel
+        start = new JButton("Start");           // start button
+        stop = new JButton("Stop");             // stop button
 
         controlPanel.add(addShape);             // add button, textField, label into the control panel
         controlPanel.add(countLabel);
         controlPanel.add(showNum);
+
+        controlPanel.add(start);
+        controlPanel.add(stop);
         controlPanel.setPreferredSize(new Dimension(100, 400)); // set control panel's size
 
         add(controlPanel);                      // add control panel and drawing panel into Shape panel
         add(drawingPanel);
 
-        addShape.addActionListener(new ButtonListener());
+        ButtonListener actionListener = new ButtonListener();
+        addShape.addActionListener(actionListener);
+        start.addActionListener(actionListener);
+        stop.addActionListener(actionListener);
+
+        // set timer
+        timer = new Timer(DELAY,actionListener);
     }
 
     private class ButtonListener implements ActionListener {
@@ -60,7 +75,19 @@ public class ShapePanel extends JPanel {
                 } else {
                     System.out.println("You reached 20 limit");
                 }
+            } else if (e.getSource() == stop) {
+                timer.stop();
+            } else {
+                timer.start();
+                try {
+                    for (Shape item: shapes) {
+                        item.move();
+                    }
+                } catch (NullPointerException event) {
+                    System.out.println("There is no object to move");
+                }
             }
+
             countLabel.setText(""+count);
             repaint();
         }
