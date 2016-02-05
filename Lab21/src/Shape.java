@@ -29,4 +29,8 @@ public class Shape {
         g.setColor(color);
         g.fillOval(x, y, width, height);
     }
+
+    public String toString() {
+        return String.format("x: %d, y: %d, width: %d, height: %d", x, y, width, height);
+    }
 }
