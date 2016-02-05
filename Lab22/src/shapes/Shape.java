@@ -13,6 +13,9 @@ public class Shape {
     private int height;
     private Color color;
 
+    private int moveX = 1;
+    private int moveY = 1;
+
     public Shape() {
         this.width = randomeRange(10, 30);
         this.height = width;
@@ -30,6 +33,11 @@ public class Shape {
     public void display(Graphics g) {
         g.setColor(color);
         g.fillOval(x, y, width, height);
+    }
+
+    public void move() {
+        x += moveX;
+        y += moveY;
     }
 
     public String toString() {
