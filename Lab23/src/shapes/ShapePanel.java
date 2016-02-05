@@ -15,7 +15,7 @@ public class ShapePanel extends JPanel {
     private DrawingPanel drawingPanel;
     private JPanel controlPanel;
     // private JButton addShape = new JButton("Add Shape");
-    private JButton[] buttons = {new JButton("Circle"), new JButton("Square"), new JButton("Oval"), new JButton("Smile"), new JButton("Start"), new JButton("Stop")};
+    private JButton[] buttons = {new JButton("Circle"), new JButton("Square"), new JButton("Oval"), new JButton("Smiley"), new JButton("Swirl"), new JButton("Start"), new JButton("Stop")};
     private JTextField showNum;
     private JLabel countLabel = new JLabel("Count");
     private int count = 0;
@@ -61,8 +61,7 @@ public class ShapePanel extends JPanel {
 
     private class ButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-
-            if (e.getSource() == timer) {
+            if (e.getSource() == timer) {                       // event from timer
                 try {
                     for (Shape item: shapes) {
                         item.move();
@@ -70,17 +69,29 @@ public class ShapePanel extends JPanel {
                 } catch (NullPointerException event) {
                     System.out.println("There is no object to move");
                 }
-            } else {
+            } else {                                            // event from button
                 JButton button = (JButton) e.getSource();
                 String str = button.getText().toLowerCase();
                 if (str.equals("stop")) {
                     timer.stop();
                 } else if (str.equals("start")) {
                     timer.start();
-                } else {
+                } else {                // add shapes on panel
                     if (count<20) {
-                        Shape item = new Circle();
-                        System.out.println(item);
+                        Shape item;
+                        if (str.equals("circle")) {
+                            item = new Circle();
+                        } else if (str.equals("oval")) {
+                            item = new Oval();
+                        } else if (str.equals("square")) {
+                            item = new Square();
+                        } else if (str.equals("smiley")) {
+                            item = new Smiley();
+                        } else if (str.equals("swirl")) {
+                            item = new Swirl();
+                        } else {
+                            item = new Circle();
+                        }
                         shapes[count] = item;
                         count++;
                     } else {
@@ -113,9 +124,5 @@ public class ShapePanel extends JPanel {
 
         }
     }
-
-//    public Shape[] getShapes() {
-//        return shapes;
-//    }
 
 }
