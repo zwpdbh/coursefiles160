@@ -68,7 +68,7 @@ public class ShapePanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == addShape) {
                 if (count<20) {
-                    Shape item = new Shape();
+                    Shape item = new Circle();
                     System.out.println(item);
                     shapes[count] = item;
                     count++;

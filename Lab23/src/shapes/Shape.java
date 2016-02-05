@@ -6,12 +6,12 @@ import java.util.Random;
 /**
  * Created by wzhao on 2/5/16.
  */
-public class Shape {
-    private int x;
-    private int y;
-    private int width;
-    private int height;
-    private Color color;
+abstract class Shape {
+    protected int x;
+    protected int y;
+    protected int width;
+    protected int height;
+    protected Color color;
 
     private int moveX = 1;
     private int moveY = 1;
@@ -35,10 +35,8 @@ public class Shape {
         return generator.nextInt(hi - lo + 1) + lo;
     }
 
-    public void display(Graphics g) {
-        g.setColor(color);
-        g.fillOval(x, y, width, height);
-    }
+    abstract void display(Graphics g);
+
 
     public void move() {
         // bounce back when meet boundary
