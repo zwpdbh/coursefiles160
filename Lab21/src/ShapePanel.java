@@ -1,3 +1,5 @@
+import com.sun.org.apache.bcel.internal.classfile.InnerClass;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -7,13 +9,13 @@ import java.awt.event.*;
  * Created by wzhao on 2/5/16.
  */
 public class ShapePanel extends JPanel {
-    private Shape[] shapes = new Shape[20];
+    private Shape[] shapes;
     private DrawingPanel drawingPanel;
     private JPanel controlPanel;
     private JButton addShape = new JButton("Add Shape");
     private JTextField showNum;
     private JLabel countLabel = new JLabel("Count");
-    private int count;
+    private int count = 0;
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Lab Drawing");
@@ -27,28 +29,37 @@ public class ShapePanel extends JPanel {
 
     /**Constructor*/
     public ShapePanel() {
-        JPanel controlPanel = new JPanel();
-        addShape = new JButton("Add Shape");
-        showNum = new JTextField(2);
-        countLabel = new JLabel("Count");
+        shapes = new Shape[20];
+        JPanel controlPanel = new JPanel();     // control panel
+        addShape = new JButton("Add Shape");    // button
+        showNum = new JTextField(2);            // textField
+        countLabel = new JLabel("Count");       // label
+        drawingPanel = new DrawingPanel();      // the drawing panel
 
-        addShape.addActionListener(new ButtonListener());
-
-        controlPanel.add(addShape);
+        controlPanel.add(addShape);             // add button, textField, label into the control panel
         controlPanel.add(countLabel);
         controlPanel.add(showNum);
+        controlPanel.setPreferredSize(new Dimension(100, 400)); // set control panel's size
 
-        controlPanel.setPreferredSize(new Dimension(100, 400));
-        add(controlPanel);
-
-        drawingPanel = new DrawingPanel();  // Add draw panel
+        add(controlPanel);                      // add control panel and drawing panel into Shape panel
         add(drawingPanel);
-    }
 
+        addShape.addActionListener(new ButtonListener());
+    }
 
     private class ButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-
+            if (e.getSource() == addShape) {
+                if (count<20) {
+//                    Shape item = new Shape();
+//                    shapes[count] = item;
+                    shapes[count] = new Shape();
+                    count++;
+                } else {
+                    System.out.println(count);
+                }
+            }
+            countLabel.setText(""+count);
         }
     }
 
@@ -60,8 +71,18 @@ public class ShapePanel extends JPanel {
 
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
-
+            try {
+                for (int i=0; i<shapes.length; i++) {
+                    shapes[i].display(g);
+                }
+            } catch (NullPointerException e) {
+                System.out.println("There is no Shape object to draw");
+            }
         }
     }
+
+//    public Shape[] getShapes() {
+//        return shapes;
+//    }
 
 }
