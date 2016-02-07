@@ -77,7 +77,7 @@ public class ShapePanel extends JPanel {
                     timer.stop();
                 } else if (str.equals("start")) {
                     timer.start();
-                } else {                // add shapes on panel
+                } else {                                    // add shapes on panel
                     if (shapes.size() < 20) {
                         if (str.equals("circle")) {
                             shapes.add(new Circle());
@@ -90,15 +90,27 @@ public class ShapePanel extends JPanel {
                         } else if (str.equals("swirl")) {
                             shapes.add(new Swirl());
                         } else if (str.equals("remove")) {
-
+                            int index = -1;
+                            try {
+                                index = Integer.parseInt(showNum.getText());
+                                shapes.remove(index);
+                            }
+                            catch (NumberFormatException errorNumber) {
+                                System.out.println("Can not get a valid index number");
+                            }
+                            catch (IndexOutOfBoundsException errorIndex) {
+                                System.out.println("Invalid index number, you are trying to remove index = " + index);
+                            }
                         }
-
                     } else {
                         System.out.println("You reached 20 limit");
                     }
                 }
-
-                showNum.setText(""+(shapes.size() - 1));
+                if (shapes.isEmpty()) {
+                    showNum.setText("");
+                } else {
+                    showNum.setText(""+(shapes.size() - 1));
+                }
             }
 
             repaint();
@@ -111,7 +123,7 @@ public class ShapePanel extends JPanel {
             setBackground(Color.pink);
         }
 
-        public void paintComponent(Graphics g) {
+        public void paintComponent(Graphics g) {            // the drawing work
             super.paintComponent(g);
             try {
                 for (int i=0; i<shapes.size(); i++) {

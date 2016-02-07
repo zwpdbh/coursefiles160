@@ -7,9 +7,9 @@ import java.awt.*;
  * Created by zw on 2/5/16.
  */
 public class Smiley extends Shape {
-    public Smiley() {
-        width = height = 30;
-    }
+
+    private final int width = height = 30;
+
     public void display(Graphics g) {
         g.setColor(Color.yellow);
         g.fillOval(x, y, width, height);
