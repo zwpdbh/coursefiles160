@@ -17,13 +17,11 @@ public class ShapePanel extends JPanel {
     private ArrayList<Shape> shapes;
     private DrawingPanel drawingPanel;
     private JPanel controlPanel;
-    // private JButton addShape = new JButton("Add Shape");
-    private JButton[] buttons = {new JButton("Circle"), new JButton("Square"), new JButton("Oval"), new JButton("Smiley"), new JButton("Swirl"), new JButton("Start"), new JButton("Stop")};
+    private JButton[] buttons = {new JButton("Circle"), new JButton("Square"), new JButton("Oval"),
+            new JButton("Smiley"), new JButton("Swirl"), new JButton("Start"), new JButton("Stop"),
+            new JButton("Remove")};
     private JTextField showNum;
-    private JLabel countLabel = new JLabel("Count");
-    private int count = 0;
-
-    // private JButton start, stop;
+    private JLabel countLabel;
     private Timer timer;
     private final int DELAY = 10;
 
@@ -42,7 +40,7 @@ public class ShapePanel extends JPanel {
         shapes = new ArrayList<Shape>();
         JPanel controlPanel = new JPanel();     // control panel
         showNum = new JTextField(2);            // textField
-        countLabel = new JLabel("Count");       // label
+        countLabel = new JLabel("Remove which?");       // label
         drawingPanel = new DrawingPanel();      // the drawing panel
 
         ButtonListener actionListener = new ButtonListener();
@@ -80,29 +78,27 @@ public class ShapePanel extends JPanel {
                 } else if (str.equals("start")) {
                     timer.start();
                 } else {                // add shapes on panel
-                    if (count<20) {
-                        Shape item;
+                    if (shapes.size() < 20) {
                         if (str.equals("circle")) {
-                            item = new Circle();
+                            shapes.add(new Circle());
                         } else if (str.equals("oval")) {
-                            item = new Oval();
+                            shapes.add(new Oval());
                         } else if (str.equals("square")) {
-                            item = new Square();
+                            shapes.add(new Square());
                         } else if (str.equals("smiley")) {
-                            item = new Smiley();
+                            shapes.add(new Smiley());
                         } else if (str.equals("swirl")) {
-                            item = new Swirl();
-                        } else {
-                            item = new Circle();
+                            shapes.add(new Swirl());
+                        } else if (str.equals("remove")) {
+
                         }
-                        shapes.add(item);
-                        count++;
+
                     } else {
                         System.out.println("You reached 20 limit");
                     }
                 }
 
-                showNum.setText(""+count);
+                showNum.setText(""+(shapes.size() - 1));
             }
 
             repaint();

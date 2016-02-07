@@ -22,21 +22,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ShapePanel.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ShapePanel.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Lab24/src/shapes/ShapePanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="100" column="26" selection-start-line="100" selection-start-column="26" selection-end-line="100" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.31890333">
+              <caret line="19" column="59" selection-start-line="19" selection-start-column="59" selection-end-line="19" selection-end-column="59" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Shape.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Shape.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lab24/src/shapes/Shape.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.38672438">
-              <caret line="31" column="50" selection-start-line="31" selection-start-column="50" selection-end-line="31" selection-end-column="50" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -72,8 +72,8 @@
         <option value="$PROJECT_DIR$/Lab23/src/shapes/FrownToSmile.java" />
         <option value="$PROJECT_DIR$/Lab23/src/shapes/Smiley.java" />
         <option value="$PROJECT_DIR$/Lab23/src/shapes/ShapePanel.java" />
-        <option value="$PROJECT_DIR$/Lab24/src/shapes/ShapePanel.java" />
         <option value="$PROJECT_DIR$/Lab24/src/shapes/Shape.java" />
+        <option value="$PROJECT_DIR$/Lab24/src/shapes/ShapePanel.java" />
       </list>
     </option>
   </component>
@@ -640,18 +640,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lab24/src/shapes/ShapePanel.java">
+    <entry file="file://$PROJECT_DIR$/Lab24/src/shapes/Shape.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="100" column="26" selection-start-line="100" selection-start-column="26" selection-end-line="100" selection-end-column="26" />
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lab24/src/shapes/Shape.java">
+    <entry file="file://$PROJECT_DIR$/Lab24/src/shapes/ShapePanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38672438">
-          <caret line="31" column="50" selection-start-line="31" selection-start-column="50" selection-end-line="31" selection-end-column="50" />
+        <state vertical-scroll-proportion="0.31890333">
+          <caret line="19" column="59" selection-start-line="19" selection-start-column="59" selection-end-line="19" selection-end-column="59" />
           <folding />
         </state>
       </provider>
