@@ -29,6 +29,11 @@ abstract class Shape {
         }
     }
 
+    public void showIndex(Graphics g, int index) {
+        g.setColor(Color.black);
+        g.drawString(""+index, x, y);
+    }
+
     // (10) -> [0, 9],  20-30 -> (30-20)
     public int randomRange(int lo, int hi) {
         Random generator = new Random();

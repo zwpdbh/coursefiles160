@@ -1,9 +1,12 @@
 package shapes;
 
+import sun.tools.tree.ShiftLeftExpression;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 /**
  * Created by wzhao on 2/5/16.
@@ -11,7 +14,7 @@ import java.awt.event.*;
 
 
 public class ShapePanel extends JPanel {
-    private Shape[] shapes;
+    private ArrayList<Shape> shapes;
     private DrawingPanel drawingPanel;
     private JPanel controlPanel;
     // private JButton addShape = new JButton("Add Shape");
@@ -36,7 +39,7 @@ public class ShapePanel extends JPanel {
 
     /**Constructor*/
     public ShapePanel() {
-        shapes = new Shape[20];
+        shapes = new ArrayList<Shape>();
         JPanel controlPanel = new JPanel();     // control panel
         showNum = new JTextField(2);            // textField
         countLabel = new JLabel("Count");       // label
@@ -92,7 +95,7 @@ public class ShapePanel extends JPanel {
                         } else {
                             item = new Circle();
                         }
-                        shapes[count] = item;
+                        shapes.add(item);
                         count++;
                     } else {
                         System.out.println("You reached 20 limit");
@@ -115,8 +118,10 @@ public class ShapePanel extends JPanel {
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
             try {
-                for (int i=0; i<shapes.length; i++) {
-                    shapes[i].display(g);
+                for (int i=0; i<shapes.size(); i++) {
+                    shapes.get(i).display(g);
+                    shapes.get(i).showIndex(g, i);
+                    //shapes[i].display(g);
                 }
             } catch (NullPointerException e) {
                 System.out.println("There is no Shape object to draw");
