@@ -120,6 +120,7 @@ public class ShapePanel extends JPanel {
                 }
             } catch (NullPointerException e) {
                 System.out.println("There is no Shape object to draw");
+
             }
 
         }

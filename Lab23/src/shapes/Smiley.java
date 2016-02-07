@@ -16,6 +16,10 @@ public class Smiley extends Shape {
         g.setColor(Color.black);
         g.fillOval(x+7, y+8, 4, 4);
         g.fillOval(x+20, y+8, 4, 4);
-        g.fillArc(x+8, y+10, 15, 13, 190, 160);
+        if (moveY > 0) {
+            g.fillArc(x+8, y+15, 15, 13, -10, 200);
+        } else {
+            g.fillArc(x+8, y+10, 15, 13, 190, 160);
+        }
     }
 }
