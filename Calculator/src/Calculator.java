@@ -68,8 +68,6 @@ public class Calculator {
             }
         }
 
-
-
         return tmpStack.pop();
     }
 
