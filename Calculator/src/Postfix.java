@@ -11,18 +11,26 @@ public class Postfix {
 
     // Constructor, for a input string, separated with " ", to set my operation Array
     public Postfix(String equation) {
+        this.infixArray = processStr(equation);
+    }
+
+    private ArrayList<String> processStr(String equation) {
         ArrayList<String> opStack = new ArrayList<>();
         Scanner scan = new Scanner(equation);
-        do {
+        while (scan.hasNext()) {
             opStack.add(scan.next());
-        } while (scan.hasNext());
+        }
 
-        this.infixArray = opStack;
+        return opStack;
     }
 
     // return infixStack
-    public ArrayList<String> getInfixArray() {
+    private ArrayList<String> getInfixArray() {
         return this.infixArray;
+    }
+
+    public void setInfixArray(String str) {
+        this.infixArray = processStr(str);
     }
 
     public ArrayList<String> getpostfixArray() {
@@ -33,7 +41,6 @@ public class Postfix {
         System.out.println("index" + "\t" + "item" + "\t" + "operationStack" + "\t" + "postfix");
         do { // loop until the infix is empty
             String item = infixArray.get(index);
-
             try {                                   // if it is operand, put in the postfix, if not, put it in the operationStack for processing.
                 Double.parseDouble(item);
                 postfixArray.add(item);
@@ -51,7 +58,6 @@ public class Postfix {
                         }
                         postfixArray.add(between);
                     } while (!between.equals("("));
-                    System.out.println(postfixArray);
                     index++;
                     continue;
                 }

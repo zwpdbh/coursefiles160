@@ -14,12 +14,18 @@ import java.util.function.UnaryOperator;
  */
 public class Calculator {
     public static void main(String[] args) {
-        //Postfix opStack = new Postfix("3 * 5 - 2 + 5 * 33 ");
-        Postfix opStack = new Postfix("2 * ( 2 - 5 * ( 6 - 7 ) )");
-        // the result should be 2 2 5 6 7 - * - *
+        Postfix opstack = new Postfix("");
 
-        ArrayList<String> postfix = opStack.getpostfixArray();
+        opstack.setInfixArray("3 * 5 - 2 + 5 * 33 ");
+        opstack.getpostfixArray();
+        opstack.setInfixArray("2 * ( 2 - 5 * ( 6 - 7 ) )");
+        opstack.getpostfixArray();
+        opstack.setInfixArray("( 3 * 4 - ( 2 + 5 ) ) * 4 / 2");
+        opstack.getpostfixArray();
+
 
     }
+
+    
 
 }
