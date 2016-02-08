@@ -34,11 +34,11 @@ public class Op {
             case "+":
                 return (n1, n2) -> n1 + n2;
             case "-":
-                return (n1, n2) -> n1 - n2;
+                return (n1, n2) -> n2 - n1;
             case "*":
                 return (n1, n2) -> n1 * n2;
             case "/":
-                return (n1, n2) -> n1 / n2;
+                return (n1, n2) -> n2 / n1;
             default:
                 System.out.println("Matched Binary Operator Not Found: " + op);
                 return (n1, n2) -> n1 * n2;
