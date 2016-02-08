@@ -33,9 +33,9 @@ public class Postfix {
         this.infixArray = processStr(str);
     }
 
-    public ArrayList<String> getpostfixArray() {
+    public Stack<String> getPostfixStack() {
         Stack<String> operationStack = new Stack();
-        ArrayList<String> postfixArray = new ArrayList<>();
+        Stack<String> postfixStack = new Stack<>();
         int index=0;
         System.out.println(infixArray);
         System.out.println("index" + "\t" + "item" + "\t" + "operationStack" + "\t" + "postfix");
@@ -43,7 +43,7 @@ public class Postfix {
             String item = infixArray.get(index);
             try {                                   // if it is operand, put in the postfix, if not, put it in the operationStack for processing.
                 Double.parseDouble(item);
-                postfixArray.add(item);
+                postfixStack.add(item);
             } catch (Exception isNotOperand) {
                 if (item.equals(")")) {             // if there is ) then, it is time to collect the items between ( )
                     String between = "";
@@ -56,7 +56,7 @@ public class Postfix {
                         if (between.equals("(") || between.equals(")")) {
                             continue;
                         }
-                        postfixArray.add(between);
+                        postfixStack.add(between);
                     } while (!between.equals("("));
                     index++;
                     continue;
@@ -64,7 +64,7 @@ public class Postfix {
 
                 if (!operationStack.isEmpty()) {    // if the inputting operation is lower than the one on top of stack, pop higher, push lower.
                     if(lower(item, operationStack.peek())) {
-                        postfixArray.add(operationStack.pop());
+                        postfixStack.add(operationStack.pop());
                         operationStack.add(item);
                     } else {
                         operationStack.add(item);
@@ -74,20 +74,20 @@ public class Postfix {
                     operationStack.add(item);
                 }
             }
-            System.out.println(index + "\t" + item + "\t" + operationStack + "\t" + postfixArray);
+            System.out.println(index + "\t" + item + "\t" + operationStack + "\t" + postfixStack);
             index++;
         } while (!infixArray.isEmpty() && index<infixArray.size());
 
         // after processing infix array, process the operation left
         while (!operationStack.isEmpty()) {
-            postfixArray.add(operationStack.pop());
+            postfixStack.add(operationStack.pop());
         }
 
-        // print out the postfixArray for checking
+        // print out the postfixStack for checking
         System.out.println("infix is:\t" + infixArray);
-        System.out.println("postfix is:\t" + postfixArray);
+        System.out.println("postfix is:\t" + postfixStack);
 
-        return postfixArray;
+        return postfixStack;
     }
 
 

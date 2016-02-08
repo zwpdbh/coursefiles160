@@ -17,15 +17,15 @@ public class Calculator {
         Postfix opstack = new Postfix("");
 
         opstack.setInfixArray("3 * 5 - 2 + 5 * 33 ");
-        opstack.getpostfixArray();
+        opstack.getPostfixStack();
         opstack.setInfixArray("2 * ( 2 - 5 * ( 6 - 7 ) )");
-        opstack.getpostfixArray();
+        opstack.getPostfixStack();
         opstack.setInfixArray("( 3 * 4 - ( 2 + 5 ) ) * 4 / 2");
-        opstack.getpostfixArray();
+        opstack.getPostfixStack();
 
 
     }
 
-    
+
 
 }
