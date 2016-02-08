@@ -4,6 +4,7 @@ import java.util.function.UnaryOperator;
 
 /**
  * Created by zw on 2/7/16.
+ *
  */
 public class Op {
     public static double operand(String str) {

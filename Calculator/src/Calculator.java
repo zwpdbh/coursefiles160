@@ -13,25 +13,13 @@ import java.util.function.UnaryOperator;
  * 3. use recursion on Operation stack
  */
 public class Calculator {
-    private String equation;        // (3+5)/4
-    private ArrayList<String> postfixEq;
-
-    public Calculator(String inputEq) {
-        this.equation = inputEq;
-        this.postfixEq = new ArrayList<String>();
-    }
-
     public static void main(String[] args) {
+        //Postfix opStack = new Postfix("3 * 5 - 2 + 5 * 33 ");
+        Postfix opStack = new Postfix("2 * ( 2 - 5 * ( 6 - 7 ) )");
+        // the result should be 2 2 5 6 7 - * - *
 
+        ArrayList<String> postfix = opStack.getpostfixArray();
 
     }
-
-    public ArrayList<String> getPostfixEq() {
-        Stack tmpStack = new Stack();
-
-        return postfixEq;
-    }
-
-
 
 }
