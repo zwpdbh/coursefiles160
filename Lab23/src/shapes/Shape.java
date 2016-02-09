@@ -16,9 +16,13 @@ abstract class Shape {
     protected int moveX = 1;
     protected int moveY = 1;
 
+    private int change = 1;
+    private int size = 0;
+
     public Shape() {
         this.width = randomRange(10, 30);
         this.height = width;
+        this.size = width;
         this.x = randomRange(0, 400 - width);
         this.y = randomRange(0, 400 - height);
         this.color = new Color(randomRange(0,255), randomRange(0,255), randomRange(0, 255));
@@ -49,22 +53,27 @@ abstract class Shape {
         if ((this instanceof Swirl) || (this instanceof Smiley)) {
             y += moveY;
             x += moveX;
-        } else if (width >= 15) {
-            y += moveY;
         } else {
-            x += moveX;
+            if (width >= 15) {
+                y += moveY;
+            } else {
+                x += moveX;
+            }
+
+            // every move, the circle should become bigger and smaller
+            int bigger = size + 5;
+            int smaller = size - 5;
+
+            if (width>=bigger || width<=smaller) {
+                change = -change;
+            }
+            width += change;
+            height += change;
         }
-//        if (!(this instanceof Swirl) && !(this instanceof Smiley)) {
-//            // size bigger than 15, move up and down, smaller one move left and right
-//            if (width >= 15) {
-//                y += moveY;
-//            } else {
-//                x += moveX;
-//            }
-//        } else {
-//            y += moveY;
-//            x += moveX;
-//        }
+
+
+
+
     }
     public String toString() {
         return String.format("x: %d, y: %d, width: %d, height: %d", x, y, width, height);

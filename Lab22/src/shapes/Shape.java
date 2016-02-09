@@ -16,9 +16,13 @@ public class Shape {
     private int moveX = 1;
     private int moveY = 1;
 
+    private int change = 1;
+    private int size = 0;
+
     public Shape() {
         this.width = randomeRange(10, 30);
         this.height = width;
+        this.size = width;
         this.x = randomeRange(0, 400 - width);
         this.y = randomeRange(0, 400 - height);
         this.color = new Color(randomeRange(0,255), randomeRange(0,255), randomeRange(0, 255));
@@ -55,6 +59,19 @@ public class Shape {
             x += moveX;
             y += moveY;
         }
+
+        // every move, the circle should become bigger and smaller
+        int bigger = size + 5;
+        int smaller = size - 5;
+
+        if (width>=bigger || width<=smaller) {
+            change = -change;
+        }
+        width += change;
+        height += change;
+
+
+
     }
 
     public String toString() {
