@@ -76,6 +76,20 @@ public class ShapePanel extends JPanel {
                 } else if (str.equals("start")) {
                     timer.start();
                 } else {                                    // add shapes on panel
+                    if (str.equals("remove")) {             // respond remove first
+                        int index = -1;
+                        try {
+                            index = Integer.parseInt(showNum.getText());
+                            System.out.println("The value in TextField is : " + index);
+                            shapes.remove(index);
+                        }
+                        catch (NumberFormatException errorNumber) {
+                            System.out.println("Can not get a valid index number");
+                        }
+                        catch (IndexOutOfBoundsException errorIndex) {
+                            System.out.println("Invalid index number, you are trying to remove index = " + index);
+                        }
+                    }
                     if (shapes.size() < 20) {
                         if (str.equals("circle")) {
                             shapes.add(new Circle());
@@ -87,19 +101,6 @@ public class ShapePanel extends JPanel {
                             shapes.add(new Smiley());
                         } else if (str.equals("swirl")) {
                             shapes.add(new Swirl());
-                        } else if (str.equals("remove")) {
-                            int index = -1;
-                            try {
-                                index = Integer.parseInt(showNum.getText());
-                                System.out.println("The value in TextField is : " + index);
-                                shapes.remove(index);
-                            }
-                            catch (NumberFormatException errorNumber) {
-                                System.out.println("Can not get a valid index number");
-                            }
-                            catch (IndexOutOfBoundsException errorIndex) {
-                                System.out.println("Invalid index number, you are trying to remove index = " + index);
-                            }
                         }
                     } else {
                         System.out.println("You reached 20 limit");
