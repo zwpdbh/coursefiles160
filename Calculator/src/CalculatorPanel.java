@@ -32,11 +32,13 @@ public class CalculatorPanel extends JPanel {
 
     /** Constructor -- builds a GUI for a calculator */
     public CalculatorPanel() {
+        display.setPreferredSize(new Dimension(200, 30));
+
         // create an array of button labels
         String[] buttonLabels =  {"1", "2", "3", "4", "5",
                 "6", "7", "8", "9", "0",
                 "-/+", "=", "+", "-", "*",
-                "/", "(", ")", "C", "Back"};
+                "/", "(", ")", ".", "Back", "C"};
 
         // Create an array of buttons.
         digitButtons = new JButton[buttonLabels.length];
