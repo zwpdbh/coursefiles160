@@ -66,29 +66,41 @@ public class ShapePanel extends JPanel {
 
     private class ButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == addShape) {
-                if (count<20) {
+            if (e.getSource() == timer) {                   // first check if it is timer event
+                for (int i=0; i<count;i++) {
+                    shapes[i].move();
+                }
+            } else {                                        // otherwise, check the button's text
+                String button = ((JButton) e.getSource()).getText();
+                if (button.equalsIgnoreCase("start")) {
+                    timer.start();
+                } else if (button.equalsIgnoreCase("stop")) {
+                    timer.stop();
+                } else if (button.equalsIgnoreCase("Add Shape") && count < shapes.length) {
                     Shape item = new Shape();
                     System.out.println(item);
                     shapes[count] = item;
                     count++;
-                } else {
-                    System.out.println("You reached 20 limit");
-                }
-            } else if (e.getSource() == stop) {
-                timer.stop();
-            } else {
-                timer.start();
-                try {
-                    for (Shape item: shapes) {
-                        item.move();
-                    }
-                } catch (NullPointerException event) {
-                    System.out.println("There is no object to move");
+                    System.out.println(count);
                 }
             }
 
-            countLabel.setText(""+count);
+//      if (e.getSource() == addShape && count < shapes.length) {
+//        Shape item = new Shape();
+//        System.out.println(item);
+//        shapes[count] = item;
+//        count++;
+//
+//      } else if (e.getSource() == stop) {
+//        timer.stop();
+//      } else if (e.getSource() == start){
+//        timer.start();
+//        for ( int i = 0; i<count; i++) {
+//          shapes[i].move();
+//        }
+//      }
+
+            showNum.setText(""+count);
             repaint();
         }
     }
@@ -101,19 +113,14 @@ public class ShapePanel extends JPanel {
 
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
-            try {
-                for (int i=0; i<shapes.length; i++) {
-                    shapes[i].display(g);
-                }
-            } catch (NullPointerException e) {
-                System.out.println("There is no Shape object to draw");
+
+            for (int i=0; i<count; i++) {
+                shapes[i].display(g);
             }
 
         }
     }
 
-//    public Shape[] getShapes() {
-//        return shapes;
-//    }
+
 
 }

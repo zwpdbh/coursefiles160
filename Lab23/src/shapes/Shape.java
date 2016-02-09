@@ -57,8 +57,6 @@ abstract class Shape {
             y += moveY;
             x += moveX;
         }
-
-
     }
     public String toString() {
         return String.format("x: %d, y: %d, width: %d, height: %d", x, y, width, height);

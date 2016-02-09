@@ -40,6 +40,7 @@ public class Shape {
         g.fillOval(x, y, width, height);
     }
 
+
     public void move() {
         // bounce back when meet boundary
         if (y<=0 || y >= (400-height)) {
