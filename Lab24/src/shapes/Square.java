@@ -7,6 +7,7 @@ import java.awt.*;
  */
 public class Square extends Shape {
     public void display(Graphics g) {
-        g.fillRect(x, y, width, height);
+        g.setColor(this.color);
+        g.fillRect(x, y, width, width);
     }
 }

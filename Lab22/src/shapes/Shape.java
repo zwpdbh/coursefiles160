@@ -53,6 +53,7 @@ public class Shape {
             y += moveY;
         } else {
             x += moveX;
+            y += moveY;
         }
     }
 

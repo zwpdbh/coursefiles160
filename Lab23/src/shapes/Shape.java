@@ -46,17 +46,25 @@ abstract class Shape {
             moveX = -moveX;
         }
 
-        if (!(this instanceof Swirl) && !(this instanceof Smiley)) {
-            // size bigger than 15, move up and down, smaller one move left and right
-            if (width >= 15) {
-                y += moveY;
-            } else {
-                x += moveX;
-            }
-        } else {
+        if ((this instanceof Swirl) || (this instanceof Smiley)) {
             y += moveY;
             x += moveX;
+        } else if (width >= 15) {
+            y += moveY;
+        } else {
+            x += moveX;
         }
+//        if (!(this instanceof Swirl) && !(this instanceof Smiley)) {
+//            // size bigger than 15, move up and down, smaller one move left and right
+//            if (width >= 15) {
+//                y += moveY;
+//            } else {
+//                x += moveX;
+//            }
+//        } else {
+//            y += moveY;
+//            x += moveX;
+//        }
     }
     public String toString() {
         return String.format("x: %d, y: %d, width: %d, height: %d", x, y, width, height);
