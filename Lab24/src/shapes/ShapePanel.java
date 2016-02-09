@@ -1,7 +1,5 @@
 package shapes;
 
-import sun.tools.tree.ShiftLeftExpression;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -93,6 +91,7 @@ public class ShapePanel extends JPanel {
                             int index = -1;
                             try {
                                 index = Integer.parseInt(showNum.getText());
+                                System.out.println("The value in TextField is : " + index);
                                 shapes.remove(index);
                             }
                             catch (NumberFormatException errorNumber) {
