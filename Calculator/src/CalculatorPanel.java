@@ -94,26 +94,31 @@ public class CalculatorPanel extends JPanel {
                 display.setText("" + result);
                 brain.setEquation(Double.toString(result));
             } else if (button.equals("C")) {
-                brain.setEquation("");
+                brain.setEquation(" ");
                 System.out.println(brain.getEquation());
                 display.setText("0");
             } else {
                 if (button.equals("-/+")) {
                     brain.setEquation(brain.getEquation() + "-");
                 } else if (button.equalsIgnoreCase("back")) {
-                    brain.setEquation(display.getText());
-                    String errorInput = brain.getEquation().trim();
-                    System.out.println(errorInput);
+                    brain.setEquation(display.getText().trim());
+                    String errorInput = brain.getEquation();
                     String correctInput = "0";
-                    try {
-                        correctInput = errorInput.substring(0 , errorInput.lastIndexOf(" ")) + " ";
-                    } catch (StringIndexOutOfBoundsException subStringError) {
-                        System.out.println("No string to subtract");
+
+                    System.out.println("Before back, the string is: " + brain.getEquation().trim());
+                    if (brain.getEquation().lastIndexOf(" ") == 0) {
+                        brain.setEquation(" ");
+                    } else {
+                        try {
+                            correctInput = errorInput.substring(0 , errorInput.lastIndexOf(" ")) + " ";
+                        } catch (StringIndexOutOfBoundsException subStringError) {
+                            System.out.println("No string to subtract");
+                        }
+                        brain.setEquation(correctInput);
+                        setEquation(correctInput);
                     }
-                    brain.setEquation(correctInput);
-                    setEquation(correctInput);
                 } else {                            // if it is operand, append number
-                    System.out.println("The equation right now is : " + brain.getEquation());
+                    //System.out.println("The equation right now is : " + brain.getEquation());
                     brain.setEquation(brain.getEquation() + button);
                 }
                 display.setText(brain.getEquation());

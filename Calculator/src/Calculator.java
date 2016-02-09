@@ -17,29 +17,21 @@ public class Calculator {
         this.equation = str;
     }
 
-    // getter
-    public String getEquation() {
+
+    public String getEquation() {  // getter
         return this.equation;
     }
-    // setter
-    public void setEquation(String str) {
+
+    public void setEquation(String str) {// setter
         this.equation = str;
         System.out.println("After setEquation, the equation is " + equation);
     }
 
-//    public static void main(String[] args) {
-//        Postfix opstack = new Postfix("");
-//
-//        opstack.setInfixArray("3 * 5 - 2 + 5 * 33 ");
-//        opstack.getPostfixStack();
-//        opstack.setInfixArray("2 * ( 2 - 5 * ( 6 - 7 ) )");
-//        opstack.getPostfixStack();
-//        opstack.setInfixArray("( 3 * 4 - ( 2 + 5 ) ) * 4 / 2");
-//        opstack.getPostfixStack();
-//
-//    }
 
-    public double calculate() {
+
+
+
+    public double calculate() {                                                     // the caller method
         Postfix evaluationString = new Postfix(getEquation());
         Stack<String> evaluationStack = evaluationString.getPostfixStack();
 
@@ -50,7 +42,7 @@ public class Calculator {
         return evaluate(reverseStack);
     }
 
-    private double evaluate(Stack<String> operationStack) {
+    private double evaluate(Stack<String> operationStack) {                     // the helper method who do the real calculate
         Stack<Double> tmpStack = new Stack<>();
         Double operand;
 
