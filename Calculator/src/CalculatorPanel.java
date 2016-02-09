@@ -84,26 +84,34 @@ public class CalculatorPanel extends JPanel {
             operation.add("(");
             operation.add(")");
 
-            if (operation.contains(button)) {
-                equation += (" " + button + " ");
-                display.setText(equation);
+            if (operation.contains(button)) {       // if it is operation, add white blank
+                brain.setEquation(brain.getEquation() + " " + button + " ");
+                display.setText(brain.getEquation());
             } else if (button.equals("=")) {
-                brain.setEquation(equation);
-                display.setText("" + brain.calculate());
+                double result = brain.calculate();
+                display.setText("" + result);
+                brain.setEquation(Double.toString(result));
             } else if (button.equals("C")) {
                 brain.setEquation("");
+                System.out.println(brain.getEquation());
                 display.setText("0");
             } else {
                 if (button.equals("-/+")) {
-                    equation += "-";
+                    brain.setEquation(brain.getEquation() + "-");
                 } else if (button.equalsIgnoreCase("back")) {
                     String errorInput = display.getText().trim();
-                    String correctInput = errorInput.substring(0 , errorInput.lastIndexOf(" ")) + " ";
+                    String correctInput = "0";
+                    try {
+                        correctInput = errorInput.substring(0 , errorInput.lastIndexOf(" ")) + " ";
+                    } catch (StringIndexOutOfBoundsException subStringError) {
+                        System.out.println("No string to subtract");
+                    }
                     setEquation(correctInput);
-                } else {
-                    equation += button;
+                } else {                            // if it is operand, append number
+                    System.out.println("The equation right now is : " + brain.getEquation());
+                    brain.setEquation(brain.getEquation() + button);
                 }
-                display.setText(equation);
+                display.setText(brain.getEquation());
             }
         }
     }

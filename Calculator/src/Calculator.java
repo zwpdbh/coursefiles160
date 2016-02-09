@@ -24,6 +24,7 @@ public class Calculator {
     // setter
     public void setEquation(String str) {
         this.equation = str;
+        System.out.println("After setEquation, the equation is " + equation);
     }
 
 //    public static void main(String[] args) {
