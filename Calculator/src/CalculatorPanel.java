@@ -101,13 +101,16 @@ public class CalculatorPanel extends JPanel {
                 if (button.equals("-/+")) {
                     brain.setEquation(brain.getEquation() + "-");
                 } else if (button.equalsIgnoreCase("back")) {
-                    String errorInput = display.getText().trim();
+                    brain.setEquation(display.getText());
+                    String errorInput = brain.getEquation().trim();
+                    System.out.println(errorInput);
                     String correctInput = "0";
                     try {
                         correctInput = errorInput.substring(0 , errorInput.lastIndexOf(" ")) + " ";
                     } catch (StringIndexOutOfBoundsException subStringError) {
                         System.out.println("No string to subtract");
                     }
+                    brain.setEquation(correctInput);
                     setEquation(correctInput);
                 } else {                            // if it is operand, append number
                     System.out.println("The equation right now is : " + brain.getEquation());
