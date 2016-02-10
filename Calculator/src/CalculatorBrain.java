@@ -1,19 +1,17 @@
-import com.sun.xml.internal.messaging.saaj.soap.impl.HeaderImpl;
-
-import java.time.temporal.Temporal;
 import java.util.*;
 
 /**
- * Created by wzhao on 2/8/16.
+ * Created by wzhao on 2/10/16.
  */
-public class Postfix {
-    private ArrayList<String> infixArray;
+public class CalculatorBrain {
+    private ArrayList<String> equationList;
 
-    // Constructor, for a input string, separated with " ", to set my operation Array
-    public Postfix(String equation) {
-        this.infixArray = processStr(equation);
+    /**Constructor*/
+    public CalculatorBrain(String eq) {
+        equationList = processStr(eq);
     }
 
+    /**helper method to change string into my equation List*/
     private ArrayList<String> processStr(String equation) {
         ArrayList<String> opStack = new ArrayList<>();
         Scanner scan = new Scanner(equation);
@@ -24,23 +22,100 @@ public class Postfix {
         return opStack;
     }
 
-    // return infixStack
-    public ArrayList<String> getInfixArray() {
-        return this.infixArray;
+    /**get the string from my equation List*/
+    public String getEquationString() {
+        String eq = "";
+        for (String str: this.equationList) {
+            eq += ( str + " ");
+        }
+
+        return eq;
     }
 
-    public void setInfixArray(String str) {
-        this.infixArray = processStr(str);
+    /**set my equation List from string*/
+    public void setEquationList(String eq) {
+        this.equationList = processStr(eq);
     }
 
-    public Stack<String> getPostfixStack() {
+    /**add one item into my equation List*/
+    public void addItem(String str) {
+        this.equationList.add(str);
+    }
+
+    /**remove the last added item from equationList*/
+    public void removeLastOne() {
+        this.equationList.remove(equationList.size()-1);
+    }
+
+    /**The caller method, use this to call the brain to calculate*/
+    public double calculate() {
+        Stack<String> evaluationStack = getPostfixStack();
+
+        Stack<String> reverseStack = new Stack<>();
+        while (!evaluationStack.isEmpty()) {
+            reverseStack.add(evaluationStack.pop());
+        }
+
+        double result = evaluate(reverseStack);
+        setEquationList(result + "");
+        return result;
+    }
+
+    /**the helper method who do the real calculate*/
+    private double evaluate(Stack<String> operationStack) {
+        Stack<Double> tmpStack = new Stack<>();
+        Double operand;
+
+        while (!operationStack.isEmpty()) {
+            System.out.print(operationStack);
+            System.out.print("\t");
+            System.out.println(tmpStack);
+            String op = operationStack.pop();
+            if (!binaryOp(op) && !unaryOp(op)) {
+                operand = Double.parseDouble(op);
+                tmpStack.add(operand);
+            } else if (binaryOp(op)) {
+                operationStack.add(Op.binaryOp(op).apply(tmpStack.pop(),tmpStack.pop()).toString());
+            } else if (unaryOp(op)) {
+                operationStack.add(Op.unaryOp(op).apply(tmpStack.pop()).toString());
+            }
+        }
+
+        return tmpStack.pop();
+    }
+
+    private boolean binaryOp(String str) {
+        HashSet<String> binary = new HashSet<>();
+        binary.add("+");
+        binary.add("-");
+        binary.add("*");
+        binary.add("/");
+
+        if (binary.contains(str)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean unaryOp(String str) {
+        HashSet<String> unary = new HashSet<>();
+        unary.add("sqr");
+
+        if (unary.contains(str)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**from equationList get postfixStack for real calculation*/
+    private Stack<String> getPostfixStack() {
         Stack<String> operationStack = new Stack();
         Stack<String> postfixStack = new Stack<>();
         int index=0;
-        System.out.println(infixArray);
+        System.out.println(equationList);
         System.out.println("index" + "\t" + "item" + "\t" + "operationStack" + "\t" + "postfix");
         do { // loop until the infix is empty
-            String item = infixArray.get(index);
+            String item = equationList.get(index);
             try {                                   // if it is operand, put in the postfix, if not, put it in the operationStack for processing.
                 Double.parseDouble(item);
                 postfixStack.add(item);
@@ -70,13 +145,13 @@ public class Postfix {
                         operationStack.add(item);
                     }
                 }
-                 else {
+                else {
                     operationStack.add(item);
                 }
             }
             System.out.println(index + "\t" + item + "\t" + operationStack + "\t" + postfixStack);
             index++;
-        } while (!infixArray.isEmpty() && index<infixArray.size());
+        } while (!equationList.isEmpty() && index<equationList.size());
 
         // after processing infix array, process the operation left
         while (!operationStack.isEmpty()) {
@@ -84,12 +159,11 @@ public class Postfix {
         }
 
         // print out the postfixStack for checking
-        System.out.println("infix is:\t" + infixArray);
+        System.out.println("infix is:\t" + equationList);
         System.out.println("postfix is:\t" + postfixStack);
 
         return postfixStack;
     }
-
 
     /**return true, if op1 has lower operation precedence than op2*/
     private boolean lower(String op1, String op2) {
@@ -111,4 +185,5 @@ public class Postfix {
         }
         return false;
     }
- }
+
+}

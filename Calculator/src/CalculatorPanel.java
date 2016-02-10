@@ -12,8 +12,6 @@ import java.awt.*;
 import java.util.*;
 
 public class CalculatorPanel extends JPanel {
-    // a data field calc to hold a Calculator object
-    private Calculator calc;
 
     // an array of buttons displayed on the calculator
     private JButton[] digitButtons;
@@ -29,7 +27,8 @@ public class CalculatorPanel extends JPanel {
         display.setText(str);
     }
 
-    private Calculator brain = new Calculator("");
+    // My calculator brain!
+    private CalculatorBrain brain = new CalculatorBrain("");
 
 
     /**
@@ -95,53 +94,53 @@ public class CalculatorPanel extends JPanel {
             operation.add(")");
 
             if (operation.contains(button)) {                       // if it is operation, add white blank
-                brain.setEquation(brain.getEquation() + " " + button + " ");
-                display.setText(brain.getEquation());
+                brain.setEquationList(display.getText());
+                brain.addItem(button);
+                display.setText(brain.getEquationString());
             } else {
                 System.out.println(button);
                 switch (button) {
                     case "=":
+                        brain.setEquationList(display.getText());
                         double result = brain.calculate();
                         display.setText("" + result);
-                        brain.setEquation(Double.toString(result));
                         break;
                     case "C":
-                        brain.setEquation(" ");
-                        System.out.println(brain.getEquation());
+                        brain.setEquationList("");
+                        System.out.println(brain.getEquationString());
                         display.setText("0");
                         break;
-                    case "-/+":
-                        brain.setEquation(brain.getEquation() + "-");
+                    case "-/+":                                     // treated it like a normal number
+                        if (display.getText().equals("0")) {
+                            display.setText("-");
+                        } else {
+                            display.setText(display.getText() + "-");
+                        }
                         break;
                     case "Back":
-                        brain.setEquation(display.getText());
-                        String errorInput = brain.getEquation();
-                        String correctInput = "0";
-                        Scanner scan = new Scanner(display.getText());
-                        int count = 0;
-                        while (scan.hasNext()) {
-                            scan.next();
-                            count++;
+                        brain.setEquationList(display.getText());
+                        try {
+                            brain.removeLastOne();
+                        } catch (ArrayIndexOutOfBoundsException removeError) {
+                            System.out.println("There is no item to remove anymore");
                         }
-                        if (count == 1) {
-                            brain.setEquation(" ");
+                        // if it is the only item left, display 0 as result
+                        if (brain.getEquationString().equals("")) {
                             display.setText("0");
                         } else {
-                            try {
-                                correctInput = errorInput.trim().substring(0, errorInput.lastIndexOf(" "));
-                            } catch (StringIndexOutOfBoundsException subStringError) {
-                                System.out.println("No string to subtract");
-                            }
+                            display.setText(brain.getEquationString());
                         }
-                        brain.setEquation(correctInput);
-                        setEquation(correctInput);
                         break;
                     default:
                         // System.out.println("The equation right now is : " + brain.getEquation());
-                        brain.setEquation(brain.getEquation() + button);
+                        if (display.getText().equals("0")) {
+                            display.setText(button);
+                        } else {
+                            display.setText(display.getText() + button);
+                        }
                 }
             }
-            display.setText(brain.getEquation());
+//            display.setText(brain.getEquation());
         }
     }
 }
