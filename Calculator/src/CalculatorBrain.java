@@ -75,24 +75,26 @@ public class CalculatorBrain {
                 operand = Double.parseDouble(op);
                 tmpStack.add(operand);
             } else if (binaryOp(op)) {                      // when it is binary Op, pop two operand
-                try {
-                    if (tmpStack.size()<2) {
-                        System.out.println("There is not enough operand on tmp stack for evaluate");
-                        break;
-                    }
-                    operationStack.add(Op.binaryOp(op).apply(tmpStack.pop(),tmpStack.pop()).toString());
-                } catch (EmptyStackException emptyStackError) {
-                    System.out.println("Empty stack when try to do binaryOperation");
-                }
+//                try {
+//                    if (tmpStack.size()<2) {
+//                        System.out.println("There is not enough operand on tmp stack for evaluate");
+//                        break;
+//                    }
+//                    operationStack.add(Op.binaryOp(op).apply(tmpStack.pop(),tmpStack.pop()).toString());
+//                } catch (EmptyStackException emptyStackError) {
+//                    System.out.println("Empty stack when try to do binaryOperation");
+//                }
+                operationStack.add(Op.binaryOp(op).apply(tmpStack.pop(),tmpStack.pop()).toString());
             } else if (unaryOp(op)) {
-                try {                                       // when it is unary Op, pop one operand
-                    if (tmpStack.size()<1) {
-                        System.out.println("There is not enough operand on tmp stack for evaluate");
-                    }
-                    operationStack.add(Op.unaryOp(op).apply(tmpStack.pop()).toString());
-                } catch (EmptyStackException emptyStackError) {
-                    System.out.println("Empty stack when try to do unaryOperation");
-                }
+                operationStack.add(Op.unaryOp(op).apply(tmpStack.pop()).toString());
+//                try {                                       // when it is unary Op, pop one operand
+//                    if (tmpStack.size()<1) {
+//                        System.out.println("There is not enough operand on tmp stack for evaluate");
+//                    }
+//                    operationStack.add(Op.unaryOp(op).apply(tmpStack.pop()).toString());
+//                } catch (EmptyStackException emptyStackError) {
+//                    System.out.println("Empty stack when try to do unaryOperation");
+//                }
             }
         }
 

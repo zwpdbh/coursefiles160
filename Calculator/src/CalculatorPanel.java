@@ -101,13 +101,15 @@ public class CalculatorPanel extends JPanel {
                 switch (button) {
                     case "=":
                         brain.setEquationList(display.getText());
-//                        double result = brain.calculate();
-//                        display.setText("" + result);
                         if (brain.equationIsValid()) {
-                            double result = brain.calculate();
-                            display.setText("" + result);
+                            try {
+                                double result = brain.calculate();
+                                display.setText("" + result + " ");
+                            } catch (Exception calculateError) {
+                                display.setText("Got Invalid Equation");
+                            }
                         } else {
-                            System.out.println("Invalid equation.");
+                            System.out.println("You input invalid equation.");
                         }
                         break;
                     case "C":
