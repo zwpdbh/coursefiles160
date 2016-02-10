@@ -216,6 +216,6 @@ public class CalculatorBrain {
         }
         return false;
     }
-    
+
 
 }
