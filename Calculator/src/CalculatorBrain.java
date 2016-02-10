@@ -86,6 +86,9 @@ public class CalculatorBrain {
                 }
             } else if (unaryOp(op)) {
                 try {                                       // when it is unary Op, pop one operand
+                    if (tmpStack.size()<1) {
+                        System.out.println("There is not enough operand on tmp stack for evaluate");
+                    }
                     operationStack.add(Op.unaryOp(op).apply(tmpStack.pop()).toString());
                 } catch (EmptyStackException emptyStackError) {
                     System.out.println("Empty stack when try to do unaryOperation");
