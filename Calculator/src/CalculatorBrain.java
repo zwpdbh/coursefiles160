@@ -221,6 +221,10 @@ public class CalculatorBrain {
             }
         }
 
+        if (left!=right) {
+            return false;
+        }
+
         return true;
     }
 
