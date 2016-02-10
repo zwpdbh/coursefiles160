@@ -84,6 +84,8 @@ public class CalculatorBrain {
         return tmpStack.pop();
     }
 
+
+    /**return true if a string represents binary operation*/
     private boolean binaryOp(String str) {
         HashSet<String> binary = new HashSet<>();
         binary.add("+");
@@ -97,6 +99,7 @@ public class CalculatorBrain {
         return false;
     }
 
+    /**return true if a string represents unary operation*/
     private boolean unaryOp(String str) {
         HashSet<String> unary = new HashSet<>();
         unary.add("sqr");
