@@ -101,15 +101,11 @@ public class CalculatorPanel extends JPanel {
                 switch (button) {
                     case "=":
                         brain.setEquationList(display.getText());
-                        if (brain.equationIsValid()) {
-                            try {
-                                double result = brain.calculate();
-                                display.setText("" + result + " ");
-                            } catch (Exception calculateError) {
-                                display.setText("Got Invalid Equation");
-                            }
-                        } else {
-                            System.out.println("You input invalid equation.");
+                        try {
+                            double result = brain.calculate();
+                            display.setText("" + result + " ");
+                        } catch (Exception calculateError) {
+                            display.setText(brain.getOriginalString());
                         }
                         break;
                     case "C":
@@ -147,7 +143,6 @@ public class CalculatorPanel extends JPanel {
                         }
                 }
             }
-//            display.setText(brain.getEquation());
         }
     }
 }

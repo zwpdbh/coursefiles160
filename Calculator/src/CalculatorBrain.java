@@ -5,6 +5,7 @@ import java.util.*;
  */
 public class CalculatorBrain {
     private ArrayList<String> equationList;
+    private ArrayList<String> originalList;
 
     /**Constructor*/
     public CalculatorBrain(String eq) {
@@ -32,9 +33,19 @@ public class CalculatorBrain {
         return eq;
     }
 
+    /**When I push = on panel, I want to store and retrieve the original string*/
+    public String getOriginalString() {
+        String eq = "";
+        for (String str: this.originalList) {
+            eq += ( str + " ");
+        }
+        return eq;
+    }
+
     /**set my equation List from string*/
     public void setEquationList(String eq) {
         this.equationList = processStr(eq);
+        this.originalList = new ArrayList<>(this.equationList);
     }
 
     /**add one item into my equation List*/
@@ -205,44 +216,6 @@ public class CalculatorBrain {
         }
         return false;
     }
-
-
-    /**return true, if the equation is valid to calculate*/
-    public boolean equationIsValid() {      // If at any point we attempt to pop two elements off of the stack but there are not two elements on the stack, then our postfix expression was not properly formed
-        int left = 0;
-        int right = 0;
-        int operation = 0;
-        int number = 0;
-        if (binaryOp(equationList.get(0)) || binaryOp(equationList.get(equationList.size()-1))) {
-            return false;
-        }
-
-        for (int i=0; i<equationList.size();i++) {
-            String item = equationList.get(i);
-            switch (item) {
-                case "(":
-                    left++;
-                    break;
-                case ")":
-                    right++;
-                    if (right>left) {
-                        return false;
-                    }
-                    break;
-                default:
-                    if (binaryOp(item)) {
-                        operation++;
-                    } else {
-                        number++;
-                    }
-            }
-        }
-
-        if (left!=right) {
-            return false;
-        }
-
-        return true;
-    }
+    
 
 }
