@@ -74,10 +74,22 @@ public class CalculatorBrain {
             if (!binaryOp(op) && !unaryOp(op)) {
                 operand = Double.parseDouble(op);
                 tmpStack.add(operand);
-            } else if (binaryOp(op)) {
-                operationStack.add(Op.binaryOp(op).apply(tmpStack.pop(),tmpStack.pop()).toString());
+            } else if (binaryOp(op)) {                      // when it is binary Op, pop two operand
+                try {
+                    if (tmpStack.size()<2) {
+                        System.out.println("There is not enough operand on tmp stack for evaluate");
+                        break;
+                    }
+                    operationStack.add(Op.binaryOp(op).apply(tmpStack.pop(),tmpStack.pop()).toString());
+                } catch (EmptyStackException emptyStackError) {
+                    System.out.println("Empty stack when try to do binaryOperation");
+                }
             } else if (unaryOp(op)) {
-                operationStack.add(Op.unaryOp(op).apply(tmpStack.pop()).toString());
+                try {                                       // when it is unary Op, pop one operand
+                    operationStack.add(Op.unaryOp(op).apply(tmpStack.pop()).toString());
+                } catch (EmptyStackException emptyStackError) {
+                    System.out.println("Empty stack when try to do unaryOperation");
+                }
             }
         }
 
@@ -110,7 +122,7 @@ public class CalculatorBrain {
         return false;
     }
 
-    /**from equationList get postfixStack for real calculation*/
+    /**from equationList get postfixStack for preparing real calculation*/
     private Stack<String> getPostfixStack() {
         Stack<String> operationStack = new Stack();
         Stack<String> postfixStack = new Stack<>();
@@ -191,7 +203,7 @@ public class CalculatorBrain {
 
 
     /**return true, if the equation is valid to calculate*/
-    public boolean equationIsValid() {
+    public boolean equationIsValid() {      // If at any point we attempt to pop two elements off of the stack but there are not two elements on the stack, then our postfix expression was not properly formed
         int left = 0;
         int right = 0;
         int operation = 0;
