@@ -29,6 +29,7 @@ public class Calculator {
         return stackEquation.getInfixArray();
     }
 
+
     /**return the equation as string*/
     public String getEquation() {  // getter
         return this.equation;
