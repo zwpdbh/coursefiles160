@@ -189,4 +189,39 @@ public class CalculatorBrain {
         return false;
     }
 
+
+    /**return true, if the equation is valid to calculate*/
+    public boolean equationIsValid() {
+        int left = 0;
+        int right = 0;
+        int operation = 0;
+        int number = 0;
+        if (binaryOp(equationList.get(0)) || binaryOp(equationList.get(equationList.size()-1))) {
+            return false;
+        }
+
+        for (int i=0; i<equationList.size();i++) {
+            String item = equationList.get(i);
+            switch (item) {
+                case "(":
+                    left++;
+                    break;
+                case ")":
+                    right++;
+                    if (right>left) {
+                        return false;
+                    }
+                    break;
+                default:
+                    if (binaryOp(item)) {
+                        operation++;
+                    } else {
+                        number++;
+                    }
+            }
+        }
+
+        return true;
+    }
+
 }

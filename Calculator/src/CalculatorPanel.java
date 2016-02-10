@@ -102,8 +102,12 @@ public class CalculatorPanel extends JPanel {
                 switch (button) {
                     case "=":
                         brain.setEquationList(display.getText());
-                        double result = brain.calculate();
-                        display.setText("" + result);
+                        if (brain.equationIsValid()) {
+                            double result = brain.calculate();
+                            display.setText("" + result);
+                        } else {
+                            System.out.println("Invalid equation.");
+                        }
                         break;
                     case "C":
                         brain.setEquationList("");
