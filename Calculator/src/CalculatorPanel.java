@@ -83,7 +83,7 @@ public class CalculatorPanel extends JPanel {
         public void actionPerformed(ActionEvent aE) {
             JButton whichButton = (JButton) aE.getSource(); // the button pressed
             String button = whichButton.getText();
-            //display.setText("You pressed " +  whichButton.getText());
+
 
             HashSet<String> operation = new HashSet<>();
             operation.add("+");
@@ -98,7 +98,6 @@ public class CalculatorPanel extends JPanel {
                 brain.addItem(button);
                 display.setText(brain.getEquationString());
             } else {
-                System.out.println(button);
                 switch (button) {
                     case "=":
                         brain.setEquationList(display.getText());
