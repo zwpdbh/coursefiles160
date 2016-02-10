@@ -1,11 +1,11 @@
 /**
  * CalculatorPanel.java
- *
+ * <p>
  * Lab 19, COMP160,  2016
- *
+ * <p>
  * An alternative GUI front end for the Calculator class
- *
  */
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -23,19 +23,23 @@ public class CalculatorPanel extends JPanel {
     private JLabel display = new JLabel("0");
 
     private String equation = "";                   // the calculation equation
+
     private void setEquation(String str) {          // use setter method, keep model and UI consistent
         this.equation = str;
         display.setText(str);
     }
+
     private Calculator brain = new Calculator("");
 
 
-    /** Constructor -- builds a GUI for a calculator */
+    /**
+     * Constructor -- builds a GUI for a calculator
+     */
     public CalculatorPanel() {
         display.setPreferredSize(new Dimension(200, 30));
 
         // create an array of button labels
-        String[] buttonLabels =  {"1", "2", "3", "4", "5",
+        String[] buttonLabels = {"1", "2", "3", "4", "5",
                 "6", "7", "8", "9", "0",
                 "-/+", "=", "+", "-", "*",
                 "/", "(", ")", ".", "Back", "C"};
@@ -44,7 +48,7 @@ public class CalculatorPanel extends JPanel {
         digitButtons = new JButton[buttonLabels.length];
 
         // Create an actionListener
-        ButtonListener  listener = new ButtonListener();
+        ButtonListener listener = new ButtonListener();
 
         // Create a 4 x 3 grid for placement of buttons.
         JPanel buttonGrid = new JPanel();
@@ -69,10 +73,14 @@ public class CalculatorPanel extends JPanel {
     }
 
 
-    /** represents a listener for button presses */
-    private class ButtonListener implements ActionListener{
+    /**
+     * represents a listener for button presses
+     */
+    private class ButtonListener implements ActionListener {
 
-        /** what to do when a button has been pressed */
+        /**
+         * what to do when a button has been pressed
+         */
         public void actionPerformed(ActionEvent aE) {
             JButton whichButton = (JButton) aE.getSource(); // the button pressed
             String button = whichButton.getText();
@@ -86,45 +94,57 @@ public class CalculatorPanel extends JPanel {
             operation.add("(");
             operation.add(")");
 
-            if (operation.contains(button)) {       // if it is operation, add white blank
+            if (operation.contains(button)) {                       // if it is operation, add white blank
                 brain.setEquation(brain.getEquation() + " " + button + " ");
                 display.setText(brain.getEquation());
-            } else if (button.equals("=")) {
-                double result = brain.calculate();
-                display.setText("" + result);
-                brain.setEquation(Double.toString(result));
-            } else if (button.equals("C")) {
-                brain.setEquation(" ");
-                System.out.println(brain.getEquation());
-                display.setText("0");
             } else {
-                if (button.equals("-/+")) {
-                    brain.setEquation(brain.getEquation() + "-");
-                } else if (button.equalsIgnoreCase("back")) {
-                    brain.setEquation(display.getText().trim());
-                    String errorInput = brain.getEquation();
-                    String correctInput = "0";
-
-                    System.out.println("Before back, the string is: " + brain.getEquation().trim());
-                    if (brain.getEquation().lastIndexOf(" ") == 0) {
+                System.out.println(button);
+                switch (button) {
+                    case "=":
+                        double result = brain.calculate();
+                        display.setText("" + result);
+                        brain.setEquation(Double.toString(result));
+                        break;
+                    case "C":
                         brain.setEquation(" ");
-                    } else {
-                        try {
-                            correctInput = errorInput.substring(0 , errorInput.lastIndexOf(" ")) + " ";
-                        } catch (StringIndexOutOfBoundsException subStringError) {
-                            System.out.println("No string to subtract");
+                        System.out.println(brain.getEquation());
+                        display.setText("0");
+                        break;
+                    case "-/+":
+                        brain.setEquation(brain.getEquation() + "-");
+                        break;
+                    case "Back":
+                        brain.setEquation(display.getText());
+                        String errorInput = brain.getEquation();
+                        String correctInput = "0";
+                        Scanner scan = new Scanner(display.getText());
+                        int count = 0;
+                        while (scan.hasNext()) {
+                            scan.next();
+                            count++;
+                        }
+                        if (count == 1) {
+                            brain.setEquation(" ");
+                            display.setText("0");
+                        } else {
+                            try {
+                                correctInput = errorInput.trim().substring(0, errorInput.lastIndexOf(" "));
+                            } catch (StringIndexOutOfBoundsException subStringError) {
+                                System.out.println("No string to subtract");
+                            }
                         }
                         brain.setEquation(correctInput);
                         setEquation(correctInput);
-                    }
-                } else {                            // if it is operand, append number
-                    //System.out.println("The equation right now is : " + brain.getEquation());
-                    brain.setEquation(brain.getEquation() + button);
+                        break;
+                    default:
+                        // System.out.println("The equation right now is : " + brain.getEquation());
+                        brain.setEquation(brain.getEquation() + button);
                 }
-                display.setText(brain.getEquation());
             }
+            display.setText(brain.getEquation());
         }
     }
-
 }
+
+
 

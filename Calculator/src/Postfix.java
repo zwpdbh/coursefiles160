@@ -25,7 +25,7 @@ public class Postfix {
     }
 
     // return infixStack
-    private ArrayList<String> getInfixArray() {
+    public ArrayList<String> getInfixArray() {
         return this.infixArray;
     }
 

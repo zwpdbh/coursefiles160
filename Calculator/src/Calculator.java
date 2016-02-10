@@ -1,3 +1,5 @@
+import javafx.geometry.Pos;
+
 import java.lang.invoke.SwitchPoint;
 import java.util.*;
 import java.util.function.BinaryOperator;
@@ -12,28 +14,35 @@ import java.util.function.UnaryOperator;
  */
 public class Calculator {
     private String equation;
+    private Postfix stackEquation;
 
+    /**Constructor
+     * use string to set my equation List
+     * */
     public Calculator(String str) {
         this.equation = str;
+        this.stackEquation = new Postfix(getEquation());
     }
 
+    /**get my equation stack*/
+    public ArrayList<String> getEquationList() {
+        return stackEquation.getInfixArray();
+    }
 
+    /**return the equation as string*/
     public String getEquation() {  // getter
         return this.equation;
     }
 
+    /**set my equation using string*/
     public void setEquation(String str) {// setter
         this.equation = str;
         System.out.println("After setEquation, the equation is " + equation);
     }
 
-
-
-
-
-    public double calculate() {                                                     // the caller method
-        Postfix evaluationString = new Postfix(getEquation());
-        Stack<String> evaluationStack = evaluationString.getPostfixStack();
+    /**The caller method*/
+    public double calculate() {
+        Stack<String> evaluationStack = stackEquation.getPostfixStack();
 
         Stack<String> reverseStack = new Stack<>();
         while (!evaluationStack.isEmpty()) {
@@ -42,7 +51,8 @@ public class Calculator {
         return evaluate(reverseStack);
     }
 
-    private double evaluate(Stack<String> operationStack) {                     // the helper method who do the real calculate
+    /**the helper method who do the real calculate*/
+    private double evaluate(Stack<String> operationStack) {
         Stack<Double> tmpStack = new Stack<>();
         Double operand;
 
