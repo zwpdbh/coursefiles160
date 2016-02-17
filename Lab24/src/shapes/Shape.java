@@ -47,6 +47,15 @@ abstract class Shape {
     abstract void display(Graphics g);
 
 
+    protected boolean meetBoundary() {
+        if (y<=0 || y >= (400-height)) {
+            return true;
+        } else if (x<=0 || x >= (400-width)) {
+            return true;
+        }
+        return false;
+    }
+
     public void move() {
         // bounce back when meet boundary
         if (y<=0 || y >= (400-height)) {
@@ -54,7 +63,6 @@ abstract class Shape {
         } else if (x<=0 || x >= (400-width)) {
             moveX = -moveX;
         }
-
 
         if ((this instanceof Swirl) || (this instanceof Smiley)) {
             y += moveY;
