@@ -11,7 +11,7 @@ public class Smiley extends Shape {
     private final int width = height = 30;
 
     public void display(Graphics g) {
-        g.setColor(Color.yellow);
+        g.setColor(this.color);
         g.fillOval(x, y, width, height);
         g.setColor(Color.black);
         g.fillOval(x+7, y+8, 4, 4);

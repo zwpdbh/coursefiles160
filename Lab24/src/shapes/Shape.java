@@ -6,7 +6,7 @@ import java.util.Random;
 /**
  * Created by wzhao on 2/5/16.
  */
-abstract class Shape {
+public abstract class Shape {
     protected int x;
     protected int y;
     protected int width;
@@ -44,24 +44,26 @@ abstract class Shape {
         return generator.nextInt(hi - lo + 1) + lo;
     }
 
-    abstract void display(Graphics g);
+   public abstract void display(Graphics g);
 
 
-    protected boolean meetBoundary() {
-        if (y<=0 || y >= (400-height)) {
-            return true;
-        } else if (x<=0 || x >= (400-width)) {
-            return true;
-        }
-        return false;
-    }
+//    protected boolean meetBoundary() {
+//        if (y<=0 || y >= (400-height)) {
+//            return true;
+//        } else if (x<=0 || x >= (400-width)) {
+//            return true;
+//        }
+//        return false;
+//    }
 
     public void move() {
         // bounce back when meet boundary
         if (y<=0 || y >= (400-height)) {
             moveY = -moveY;
+            this.color = new Color(randomRange(0,255), randomRange(0,255), randomRange(0, 255));
         } else if (x<=0 || x >= (400-width)) {
             moveX = -moveX;
+            this.color = new Color(randomRange(0,255), randomRange(0,255), randomRange(0, 255));
         }
 
         if ((this instanceof Swirl) || (this instanceof Smiley)) {

@@ -25,7 +25,7 @@ public class Swirl extends Shape{
         g.setColor(Color.black);
         g.fillOval(centreX-4, centreY-4,8,8);
         //draw 4 ovals
-        g.setColor(shade);
+        g.setColor(this.color);
         g.fillOval(centreX-w/2, y,w,h); //top
         g.fillOval(centreX-w/2, centreY-(h-15),w,h);//bottom
         g.fillOval(x,centreY-w/2,h,w);//left
@@ -33,9 +33,9 @@ public class Swirl extends Shape{
         //if oval is dark, set colour to yellow for highlights
         if (shade.getRed() < 80 ||  shade.getGreen() < 80 || shade.getBlue() < 80) g.setColor(Color.yellow);
         else g.setColor(Color.black);
-        if (meetBoundary()) {
-            shade = new Color(randomRange(0,255), randomRange(0,255), randomRange(0, 255));
-        }
+//        if (meetBoundary()) {
+//            shade = new Color(randomRange(0,255), randomRange(0,255), randomRange(0, 255));
+//        }
         //draw highlights
         g.fillOval(centreX-4, centreY-4,8,8);
         g.drawArc(centreX-w/2, y,w,h,20,200);//top

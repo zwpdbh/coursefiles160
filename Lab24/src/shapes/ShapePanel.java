@@ -1,6 +1,9 @@
 package shapes;
 
+import com.sun.java.swing.action.StateChangeAction;
+
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.*;
@@ -57,6 +60,7 @@ public class ShapePanel extends JPanel {
         // set timer
         timer = new Timer(DELAY,actionListener);
     }
+
 
     private class ButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
